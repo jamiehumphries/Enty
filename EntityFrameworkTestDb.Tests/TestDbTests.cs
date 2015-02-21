@@ -6,6 +6,7 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.IO;
 
     public class TestDbTests
@@ -31,7 +32,7 @@
         public void Exception_is_thrown_if_no_connection_string_provided_to_constructor()
         {
             // When
-            Action testDbConstruction = () => new TestDb(null);
+            Action testDbConstruction = () => new TestDb((Func<DbContext>)null);
 
             // Then
             testDbConstruction.ShouldThrow<ArgumentNullException>().Where(e => e.ParamName == "contextFactoryMethod");

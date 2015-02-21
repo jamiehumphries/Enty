@@ -1,13 +1,21 @@
 ﻿namespace EntityFrameworkTestDb
 {
+    using EntityFrameworkTestDb.Configuration;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
+    public class TestDb<TConfiguration> : TestDb where TConfiguration : ITestDbConfiguration
+    {
+        public TestDb() : base(Activator.CreateInstance<TConfiguration>()) {}
+    }
+
     public class TestDb : IDisposable
     {
         private readonly Func<DbContext> contextFactoryMethod;
+
+        public TestDb(ITestDbConfiguration configuration) : this(ConfigurationHelper.GetContextFactoryMethod(configuration)) {}
 
         public TestDb(Func<DbContext> contextFactoryMethod)
         {

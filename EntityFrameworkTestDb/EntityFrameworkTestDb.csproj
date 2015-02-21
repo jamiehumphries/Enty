@@ -46,7 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ITestDbConnectionStringProvider.cs" />
+    <Compile Include="Configuration\ITestDbContextFactory.cs" />
     <Compile Include="TestDb.cs" />
+    <Compile Include="Configuration\TestDbConfiguration.cs" />
+    <Compile Include="Configuration\ITestNameProvider.cs" />
+    <Compile Include="ConfigurationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
