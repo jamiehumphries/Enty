@@ -5,7 +5,7 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TContext> where TContext : DbContext
+    public class TestDb<TContext> : IDisposable where TContext : DbContext
     {
         private readonly string connectionString;
         private readonly Func<string, TContext> contextFactoryMethod;
@@ -21,6 +21,14 @@
             using (var context = GetDbContext())
             {
                 return context.Set<T>().ToList();
+            }
+        }
+
+        public void Dispose()
+        {
+            using (var context = GetDbContext())
+            {
+                context.Database.Delete();
             }
         }
 
