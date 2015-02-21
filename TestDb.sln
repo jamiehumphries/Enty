@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnit.Tests", "EntityFrameworkTestDb.NUnit.Tests\EntityFrameworkTestDb.NUnit.Tests.csproj", "{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompact", "EntityFrameworkTestDb.SqlServerCompact\EntityFrameworkTestDb.SqlServerCompact.csproj", "{915BAE9C-869B-460A-AD08-E7A317D5543C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompact.Tests", "EntityFrameworkTestDb.SqlServerCompact.Tests\EntityFrameworkTestDb.SqlServerCompact.Tests.csproj", "{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{915BAE9C-869B-460A-AD08-E7A317D5543C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{915BAE9C-869B-460A-AD08-E7A317D5543C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{915BAE9C-869B-460A-AD08-E7A317D5543C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{915BAE9C-869B-460A-AD08-E7A317D5543C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
