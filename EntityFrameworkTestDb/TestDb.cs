@@ -6,24 +6,29 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TConfiguration> : TestDb where TConfiguration : ITestDbConfiguration
+    public class TestDb<TConfiguration> : TestDb where TConfiguration : TestDbConfiguration
     {
         public TestDb() : base(Activator.CreateInstance<TConfiguration>()) {}
     }
 
     public class TestDb : IDisposable
     {
-        private readonly Func<DbContext> contextFactoryMethod;
+        private readonly ITestDbConfiguration configuration;
+        private readonly DateTime executionTime = DateTime.Now;
 
-        public TestDb(ITestDbConfiguration configuration) : this(ConfigurationHelper.GetContextFactoryMethod(configuration)) {}
-
-        public TestDb(Func<DbContext> contextFactoryMethod)
+        public TestDb(ITestDbConfiguration configuration)
         {
-            if (contextFactoryMethod == null)
+            ConfigurationHelper.ValidateConfiguration(configuration);
+            this.configuration = configuration;
+        }
+
+        public string ConnectionString
+        {
+            get
             {
-                throw new ArgumentNullException("contextFactoryMethod");
+                var testName = configuration.TestNameProvider.CurrentTestName;
+                return configuration.ConnectionStringProvider.GetConnectionString(testName, executionTime);
             }
-            this.contextFactoryMethod = contextFactoryMethod;
         }
 
         public void Create()
@@ -66,7 +71,7 @@
 
         private DbContext GetDbContext()
         {
-            return contextFactoryMethod.Invoke();
+            return configuration.ContextFactory.GetDbContext(ConnectionString);
         }
     }
 }

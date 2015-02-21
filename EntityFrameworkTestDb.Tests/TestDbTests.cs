@@ -1,41 +1,34 @@
 ﻿namespace EntityFrameworkTestDb.Tests
 {
+    using EntityFrameworkTestDb.Configuration;
+    using EntityFrameworkTestDb.NUnit;
+    using EntityFrameworkTestDb.SqlServerCompact;
     using EntityFrameworkTestDb.Tests.TestHelpers;
     using EntityFrameworkTestDb.Tests.TestHelpers.Models;
     using FluentAssertions;
-    using NUnit.Framework;
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.IO;
+    using global::NUnit.Framework;
 
     public class TestDbTests
     {
         private TestDb testDb;
-        private string connectionString;
+        private TestDbConfiguration configuration;
 
         [SetUp]
         public void SetUp()
         {
-            var dbFileName = String.Concat(TestContext.CurrentContext.Test.FullName.Split(Path.GetInvalidFileNameChars())) + DateTime.Now.ToString("yyyyMMddHHmmssf");
-            connectionString = String.Format("Data Source={0}.sdf", dbFileName);
-            testDb = new TestDb(() => new TestDbContext(connectionString));
+            configuration = new TestDbConfiguration
+                            {
+                                TestNameProvider = new NUnitTestNameProvider(),
+                                ConnectionStringProvider = new SqlServerCompactConnectionStringProvider(),
+                                ContextFactory = new ContextFactory<TestDbContext>()
+                            };
+            testDb = new TestDb(configuration);
         }
 
         [TearDown]
         public void TearDown()
         {
             testDb.Dispose();
-        }
-
-        [Test]
-        public void Exception_is_thrown_if_no_connection_string_provided_to_constructor()
-        {
-            // When
-            Action testDbConstruction = () => new TestDb((Func<DbContext>)null);
-
-            // Then
-            testDbConstruction.ShouldThrow<ArgumentNullException>().Where(e => e.ParamName == "contextFactoryMethod");
         }
 
         [Test]
@@ -131,7 +124,7 @@
             // Given
             var matt = new Person { Name = "Matt" };
             var jeff = new Person { Name = "Jeff" };
-            var people = new List<Person> { matt, jeff };
+            var people = new global::System.Collections.Generic.List<Person> { matt, jeff };
 
             // When
             testDb.SeedMany(people);
@@ -145,7 +138,7 @@
 
         private TestDbContext GetDbContext()
         {
-            return new TestDbContext(connectionString);
+            return new TestDbContext(testDb.ConnectionString);
         }
 
         private bool MatchedByName(Person p1, Person p2)

@@ -4,7 +4,7 @@
     using System;
     using System.IO;
 
-    public class SqlServerCompactConnectionStringProvider : ITestDbConnectionStringProvider
+    public class SqlServerCompactConnectionStringProvider : IConnectionStringProvider
     {
         public string GetConnectionString(string testName, DateTime executionTime)
         {
