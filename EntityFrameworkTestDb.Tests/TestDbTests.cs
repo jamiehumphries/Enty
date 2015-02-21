@@ -27,6 +27,19 @@
         }
 
         [Test]
+        public void Can_create_database()
+        {
+            // When
+            testDb.Create();
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.Database.Exists().Should().BeTrue();
+            }
+        }
+
+        [Test]
         public void Disposing_deletes_database()
         {
             // Given

@@ -16,11 +16,11 @@
             this.contextFactoryMethod = contextFactoryMethod;
         }
 
-        public IList<T> GetAll<T>() where T : class
+        public void Create()
         {
             using (var context = GetDbContext())
             {
-                return context.Set<T>().ToList();
+                context.Database.CreateIfNotExists();
             }
         }
 
@@ -29,6 +29,14 @@
             using (var context = GetDbContext())
             {
                 context.Database.Delete();
+            }
+        }
+
+        public IList<T> GetAll<T>() where T : class
+        {
+            using (var context = GetDbContext())
+            {
+                return context.Set<T>().ToList();
             }
         }
 
