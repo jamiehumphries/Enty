@@ -74,13 +74,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkTestDb.NUnit\EntityFrameworkTestDb.NUnit.csproj">
+    <ProjectReference Include="..\EntityFrameworkTestDb.NUnitHelpers\EntityFrameworkTestDb.NUnitHelpers.csproj">
       <Project>{34a7b63d-a211-43c4-93b7-6ed7df578719}</Project>
-      <Name>EntityFrameworkTestDb.NUnit</Name>
+      <Name>EntityFrameworkTestDb.NUnitHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntityFrameworkTestDb.SqlServerCompact\EntityFrameworkTestDb.SqlServerCompact.csproj">
+    <ProjectReference Include="..\EntityFrameworkTestDb.SqlServerCompactHelpers\EntityFrameworkTestDb.SqlServerCompactHelpers.csproj">
       <Project>{915bae9c-869b-460a-ad08-e7a317d5543c}</Project>
-      <Name>EntityFrameworkTestDb.SqlServerCompact</Name>
+      <Name>EntityFrameworkTestDb.SqlServerCompactHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntityFrameworkTestDb\EntityFrameworkTestDb.csproj">
       <Project>{a046ca22-e6ee-4a4c-b548-c667e7be48ce}</Project>

@@ -1,12 +1,13 @@
 ﻿namespace EntityFrameworkTestDb.Tests
 {
     using EntityFrameworkTestDb.Configuration;
-    using EntityFrameworkTestDb.NUnit;
-    using EntityFrameworkTestDb.SqlServerCompact;
+    using EntityFrameworkTestDb.NUnitHelpers;
+    using EntityFrameworkTestDb.SqlServerCompactHelpers;
     using EntityFrameworkTestDb.Tests.TestHelpers;
     using EntityFrameworkTestDb.Tests.TestHelpers.Models;
     using FluentAssertions;
-    using global::NUnit.Framework;
+    using NUnit.Framework;
+    using System.Collections.Generic;
 
     public class TestDbTests
     {
@@ -124,7 +125,7 @@
             // Given
             var matt = new Person { Name = "Matt" };
             var jeff = new Person { Name = "Jeff" };
-            var people = new global::System.Collections.Generic.List<Person> { matt, jeff };
+            var people = new List<Person> { matt, jeff };
 
             // When
             testDb.SeedMany(people);

@@ -1,7 +1,7 @@
-﻿namespace EntityFrameworkTestDb.NUnit
+﻿namespace EntityFrameworkTestDb.NUnitHelpers
 {
     using EntityFrameworkTestDb.Configuration;
-    using global::NUnit.Framework;
+    using NUnit.Framework;
 
     public class NUnitTestNameProvider : ITestNameProvider
     {

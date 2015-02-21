@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb", "En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.Tests", "EntityFrameworkTestDb.Tests\EntityFrameworkTestDb.Tests.csproj", "{90133842-1C73-40D6-B2FF-BF83A12C8862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnit", "EntityFrameworkTestDb.NUnit\EntityFrameworkTestDb.NUnit.csproj", "{34A7B63D-A211-43C4-93B7-6ED7DF578719}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnitHelpers", "EntityFrameworkTestDb.NUnitHelpers\EntityFrameworkTestDb.NUnitHelpers.csproj", "{34A7B63D-A211-43C4-93B7-6ED7DF578719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnit.Tests", "EntityFrameworkTestDb.NUnit.Tests\EntityFrameworkTestDb.NUnit.Tests.csproj", "{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.NUnitHelpers.Tests", "EntityFrameworkTestDb.NUnitHelpers.Tests\EntityFrameworkTestDb.NUnitHelpers.Tests.csproj", "{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompact", "EntityFrameworkTestDb.SqlServerCompact\EntityFrameworkTestDb.SqlServerCompact.csproj", "{915BAE9C-869B-460A-AD08-E7A317D5543C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompactHelpers", "EntityFrameworkTestDb.SqlServerCompactHelpers\EntityFrameworkTestDb.SqlServerCompactHelpers.csproj", "{915BAE9C-869B-460A-AD08-E7A317D5543C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompact.Tests", "EntityFrameworkTestDb.SqlServerCompact.Tests\EntityFrameworkTestDb.SqlServerCompact.Tests.csproj", "{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkTestDb.SqlServerCompactHelpers.Tests", "EntityFrameworkTestDb.SqlServerCompactHelpers.Tests\EntityFrameworkTestDb.SqlServerCompactHelpers.Tests.csproj", "{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

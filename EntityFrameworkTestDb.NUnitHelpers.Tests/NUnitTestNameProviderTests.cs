@@ -1,7 +1,7 @@
-﻿namespace EntityFrameworkTestDb.NUnit.Tests
+﻿namespace EntityFrameworkTestDb.NUnitHelpers.Tests
 {
     using FluentAssertions;
-    using global::NUnit.Framework;
+    using NUnit.Framework;
 
     public class NUnitTestNameProviderTests
     {

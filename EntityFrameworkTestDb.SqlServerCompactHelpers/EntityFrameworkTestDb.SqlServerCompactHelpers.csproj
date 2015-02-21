@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A046CA22-E6EE-4A4C-B548-C667E7BE48CE}</ProjectGuid>
+    <ProjectGuid>{915BAE9C-869B-460A-AD08-E7A317D5543C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityFrameworkTestDb</RootNamespace>
-    <AssemblyName>EntityFrameworkTestDb</AssemblyName>
+    <RootNamespace>EntityFrameworkTestDb.SqlServerCompactHelpers</RootNamespace>
+    <AssemblyName>EntityFrameworkTestDb.SqlServerCompactHelpers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,20 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\IConnectionStringProvider.cs" />
-    <Compile Include="Configuration\ITestDbContextFactory.cs" />
-    <Compile Include="Configuration\ContextFactory.cs" />
-    <Compile Include="TestDb.cs" />
-    <Compile Include="Configuration\TestDbConfiguration.cs" />
-    <Compile Include="Configuration\ITestNameProvider.cs" />
-    <Compile Include="ConfigurationHelper.cs" />
+    <Compile Include="SqlServerCompactConnectionStringProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkTestDb\EntityFrameworkTestDb.csproj">
+      <Project>{A046CA22-E6EE-4A4C-B548-C667E7BE48CE}</Project>
+      <Name>EntityFrameworkTestDb</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
