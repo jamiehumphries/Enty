@@ -5,14 +5,16 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TContext> : IDisposable where TContext : DbContext
+    public class TestDb : IDisposable
     {
-        private readonly string connectionString;
-        private readonly Func<string, TContext> contextFactoryMethod;
+        private readonly Func<DbContext> contextFactoryMethod;
 
-        public TestDb(string connectionString, Func<string, TContext> contextFactoryMethod)
+        public TestDb(Func<DbContext> contextFactoryMethod)
         {
-            this.connectionString = connectionString;
+            if (contextFactoryMethod == null)
+            {
+                throw new ArgumentNullException("contextFactoryMethod");
+            }
             this.contextFactoryMethod = contextFactoryMethod;
         }
 
@@ -54,9 +56,9 @@
             }
         }
 
-        protected virtual TContext GetDbContext()
+        private DbContext GetDbContext()
         {
-            return contextFactoryMethod(connectionString);
+            return contextFactoryMethod.Invoke();
         }
     }
 }

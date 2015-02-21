@@ -10,7 +10,7 @@
 
     public class TestDbTests
     {
-        private TestDb<TestDbContext> testDb;
+        private TestDb testDb;
         private string connectionString;
 
         [SetUp]
@@ -18,13 +18,23 @@
         {
             var dbFileName = String.Concat(TestContext.CurrentContext.Test.FullName.Split(Path.GetInvalidFileNameChars())) + DateTime.Now.ToString("yyyyMMddHHmmssf");
             connectionString = String.Format("Data Source={0}.sdf", dbFileName);
-            testDb = new TestDb<TestDbContext>(connectionString, s => new TestDbContext(s));
+            testDb = new TestDb(() => new TestDbContext(connectionString));
         }
 
         [TearDown]
         public void TearDown()
         {
             testDb.Dispose();
+        }
+
+        [Test]
+        public void Exception_is_thrown_if_no_connection_string_provided_to_constructor()
+        {
+            // When
+            Action testDbConstruction = () => new TestDb(null);
+
+            // Then
+            testDbConstruction.ShouldThrow<ArgumentNullException>().Where(e => e.ParamName == "contextFactoryMethod");
         }
 
         [Test]
