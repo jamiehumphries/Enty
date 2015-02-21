@@ -5,6 +5,7 @@
     using FluentAssertions;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
     using System.IO;
 
     public class TestDbTests
@@ -62,7 +63,10 @@
         public void Can_get_all_entities_of_a_type()
         {
             // Given
-            var people = new[] { new Person { Name = "Tom" }, new Person { Name = "Dick" }, new Person { Name = "Harry" } };
+            var tom = new Person { Name = "Tom" };
+            var dick = new Person { Name = "Dick" };
+            var harry = new Person { Name = "Harry" };
+            var people = new[] { tom, dick, harry };
             using (var context = GetDbContext())
             {
                 context.People.AddRange(people);
@@ -89,6 +93,42 @@
             using (var context = GetDbContext())
             {
                 context.People.Should().Contain(p => p.Name == "Jamie");
+            }
+        }
+
+        [Test]
+        public void Can_seed_multiple_entities()
+        {
+            // Given
+            var huey = new Person { Name = "Huey" };
+            var dewey = new Person { Name = "Dewey" };
+            var louie = new Person { Name = "Louie" };
+
+            // When
+            testDb.Seed(huey, dewey, louie);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().HaveCount(3);
+            }
+        }
+
+        [Test]
+        public void Can_seed_multiple_entities_in_a_collection()
+        {
+            // Given
+            var matt = new Person { Name = "Matt" };
+            var jeff = new Person { Name = "Jeff" };
+            var people = new List<Person> { matt, jeff };
+
+            // When
+            testDb.SeedMany(people);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().HaveCount(2);
             }
         }
 
