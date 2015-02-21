@@ -77,7 +77,7 @@
             var allPeople = testDb.GetAll<Person>();
 
             // Then
-            allPeople.Should().Equal(people, (p1, p2) => p1.Name == p2.Name);
+            allPeople.Should().Equal(people, MatchedByName);
         }
 
         [Test]
@@ -92,7 +92,7 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().Contain(p => p.Name == "Jamie");
+                context.People.Should().Contain(p => p.Name == "Jamie").Which.Should().Match<Person>(p => p.Id != 0);
             }
         }
 
@@ -110,7 +110,7 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().HaveCount(3);
+                context.People.Should().Equal(new[] { huey, dewey, louie }, MatchedByName).And.OnlyContain(p => p.Id != 0);
             }
         }
 
@@ -128,13 +128,18 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().HaveCount(2);
+                context.People.Should().Equal(people, MatchedByName).And.OnlyContain(p => p.Id != 0);
             }
         }
 
         private TestDbContext GetDbContext()
         {
             return new TestDbContext(connectionString);
+        }
+
+        private bool MatchedByName(Person p1, Person p2)
+        {
+            return p1.Name == p2.Name;
         }
     }
 }

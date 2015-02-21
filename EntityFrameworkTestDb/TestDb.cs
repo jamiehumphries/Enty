@@ -32,7 +32,7 @@
             }
         }
 
-        public IList<T> GetAll<T>() where T : class
+        public IEnumerable<T> GetAll<T>() where T : class
         {
             using (var context = GetDbContext())
             {
@@ -40,11 +40,16 @@
             }
         }
 
-        public void Seed<T>(T entity) where T : class
+        public void Seed<T>(params T[] entities) where T : class
+        {
+            SeedMany(entities);
+        }
+
+        public void SeedMany<T>(IEnumerable<T> entities) where T : class
         {
             using (var context = GetDbContext())
             {
-                context.Set<T>().Add(entity);
+                context.Set<T>().AddRange(entities);
                 context.SaveChanges();
             }
         }
