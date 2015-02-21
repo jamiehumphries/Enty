@@ -40,6 +40,15 @@
             }
         }
 
+        public void Seed<T>(T entity) where T : class
+        {
+            using (var context = GetDbContext())
+            {
+                context.Set<T>().Add(entity);
+                context.SaveChanges();
+            }
+        }
+
         protected virtual TContext GetDbContext()
         {
             return contextFactoryMethod(connectionString);

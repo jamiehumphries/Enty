@@ -76,6 +76,22 @@
             allPeople.Should().Equal(people, (p1, p2) => p1.Name == p2.Name);
         }
 
+        [Test]
+        public void Can_seed_single_entity()
+        {
+            // Given
+            var jamie = new Person { Name = "Jamie" };
+
+            // When
+            testDb.Seed(jamie);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().Contain(p => p.Name == "Jamie");
+            }
+        }
+
         private TestDbContext GetDbContext()
         {
             return new TestDbContext(connectionString);
