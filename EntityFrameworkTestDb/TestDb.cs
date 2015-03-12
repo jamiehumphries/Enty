@@ -1,5 +1,6 @@
 ﻿namespace EntityFrameworkTestDb
 {
+    using AutoMapper;
     using EntityFrameworkTestDb.Configuration;
     using System;
     using System.Collections.Generic;
@@ -51,7 +52,7 @@
         {
             using (var context = GetDbContext())
             {
-                return context.Set<T>().ToList();
+                return context.Set<T>().AsEnumerable().Select(Mapper.DynamicMap<T>).ToList();
             }
         }
 

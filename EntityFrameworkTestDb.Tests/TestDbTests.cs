@@ -86,6 +86,28 @@
         }
 
         [Test]
+        public void Navigation_properties_are_loaded_on_retrieved_entities()
+        {
+            // Given
+            var wallace = new Person { Name = "Wallace" };
+            var gromit = new Dog { Name = "Gromit", Owner = wallace };
+            using (var context = GetDbContext())
+            {
+                context.People.Add(wallace);
+                context.Dogs.Add(gromit);
+                context.SaveChanges();
+            }
+
+            // When
+            var allPeople = testDb.GetAll<Person>();
+            var allDogs = testDb.GetAll<Dog>();
+
+            // Then
+            allPeople.Should().Contain(p => p.Name == "Wallace").Which.Dogs.Should().HaveCount(1);
+            allDogs.Should().Contain(p => p.Name == "Gromit").Which.Owner.Name.Should().Be("Wallace");
+        }
+
+        [Test]
         public void Can_seed_single_entity()
         {
             // Given
