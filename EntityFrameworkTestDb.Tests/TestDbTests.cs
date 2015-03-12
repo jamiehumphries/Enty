@@ -137,6 +137,37 @@
             }
         }
 
+        [Test]
+        public void Seeded_entities_are_all_given_ids()
+        {
+            // Given
+            var tom = new Person { Name = "Tom" };
+            var jerry = new Person { Name = "Jerry" };
+
+            // When
+            testDb.Seed(tom, jerry);
+
+            // Then
+            tom.Id.Should().NotBe(0);
+            jerry.Id.Should().NotBe(0);
+        }
+
+        [Test]
+        public void Entities_seeded_in_collection_are_all_given_ids()
+        {
+            // Given
+            var fred = new Person { Name = "Fred" };
+            var wilma = new Person { Name = "Wilma" };
+            var pebbles = new Person { Name = "Pebbles" };
+            var people = new List<Person> { fred, wilma, pebbles };
+
+            // When
+            testDb.SeedMany(people);
+
+            // Then
+            people.Should().OnlyContain(p => p.Id != 0);
+        }
+
         private TestDbContext GetDbContext()
         {
             return new TestDbContext(testDb.ConnectionString);
