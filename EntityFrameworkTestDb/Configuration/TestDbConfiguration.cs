@@ -2,9 +2,9 @@
 {
     public interface ITestDbConfiguration
     {
-        ITestNameProvider TestNameProvider { get; set; }
-        IConnectionStringProvider ConnectionStringProvider { get; set; }
-        ITestDbContextFactory ContextFactory { get; set; }
+        ITestNameProvider TestNameProvider { get; }
+        IConnectionStringProvider ConnectionStringProvider { get; }
+        ITestDbContextFactory ContextFactory { get; }
     }
 
     public class TestDbConfiguration : ITestDbConfiguration

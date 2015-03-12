@@ -7,7 +7,7 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TConfiguration> : TestDb where TConfiguration : TestDbConfiguration
+    public class TestDb<TConfiguration> : TestDb where TConfiguration : ITestDbConfiguration
     {
         public TestDb() : base(Activator.CreateInstance<TConfiguration>()) {}
     }
