@@ -28,7 +28,7 @@
             const string testName1 = "Some_unit_test";
             const string testName2 = "A_different_unit_test";
             var executionTimeA = DateTime.Now;
-            var executionTimeB = DateTime.Now.AddSeconds(1);
+            var executionTimeB = DateTime.Now.AddMilliseconds(1);
 
             // When
             var connectionString1A = provider.GetConnectionString(testName1, executionTimeA);

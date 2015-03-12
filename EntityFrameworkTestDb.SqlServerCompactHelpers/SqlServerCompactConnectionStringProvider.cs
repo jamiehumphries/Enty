@@ -9,7 +9,7 @@
         public string GetConnectionString(string testName, DateTime executionTime)
         {
             var cleanedTestName = String.Concat(testName.Split(Path.GetInvalidFileNameChars()));
-            var dbFileName = cleanedTestName + executionTime.ToString("yyyyMMddHHmmssff");
+            var dbFileName = cleanedTestName + executionTime.Ticks;
             if (dbFileName.Length > 100)
             {
                 dbFileName = dbFileName.Substring(0, 50) + "…" + dbFileName.Substring(dbFileName.Length - 50);
