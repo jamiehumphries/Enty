@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NUnitTestNameProvider.cs" />
+    <Compile Include="NUnitTestIdentityProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

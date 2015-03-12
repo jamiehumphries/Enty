@@ -8,12 +8,12 @@
     {
         public NUnitSqlServerCompactConfiguration()
         {
-            TestNameProvider = new NUnitTestNameProvider();
+            TestIdentityProvider = new NUnitTestIdentityProvider();
             ConnectionStringProvider = new SqlServerCompactConnectionStringProvider();
             ContextFactory = new ContextFactory<TestDbContext>();
         }
 
-        public ITestNameProvider TestNameProvider { get; private set; }
+        public ITestIdentityProvider TestIdentityProvider { get; private set; }
         public IConnectionStringProvider ConnectionStringProvider { get; private set; }
         public ITestDbContextFactory ContextFactory { get; private set; }
     }

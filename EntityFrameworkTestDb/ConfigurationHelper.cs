@@ -11,9 +11,9 @@
             {
                 throw new ArgumentNullException("configuration");
             }
-            if (configuration.TestNameProvider == null)
+            if (configuration.TestIdentityProvider == null)
             {
-                throw new ArgumentException("The TestNameProvider of the configuration argument cannot be null.");
+                throw new ArgumentException("The TestIdentityProvider of the configuration argument cannot be null.");
             }
             if (configuration.ConnectionStringProvider == null)
             {

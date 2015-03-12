@@ -3,11 +3,11 @@
     using EntityFrameworkTestDb.Configuration;
     using NUnit.Framework;
 
-    public class NUnitTestNameProvider : ITestNameProvider
+    public class NUnitTestIdentityProvider : ITestIdentityProvider
     {
-        public string CurrentTestName
+        public string GetTestIdentity()
         {
-            get { return TestContext.CurrentContext.Test.Name; }
+            return TestContext.CurrentContext.Test.Name;
         }
     }
 }

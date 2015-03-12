@@ -2,14 +2,14 @@
 {
     public interface ITestDbConfiguration
     {
-        ITestNameProvider TestNameProvider { get; }
+        ITestIdentityProvider TestIdentityProvider { get; }
         IConnectionStringProvider ConnectionStringProvider { get; }
         ITestDbContextFactory ContextFactory { get; }
     }
 
     public class TestDbConfiguration : ITestDbConfiguration
     {
-        public ITestNameProvider TestNameProvider { get; set; }
+        public ITestIdentityProvider TestIdentityProvider { get; set; }
         public IConnectionStringProvider ConnectionStringProvider { get; set; }
         public ITestDbContextFactory ContextFactory { get; set; }
     }

@@ -54,7 +54,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NUnitTestNameProviderTests.cs" />
+    <Compile Include="NUnitTestIdentityProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EntityFrameworkTestDb.NUnitHelpers\EntityFrameworkTestDb.NUnitHelpers.csproj">

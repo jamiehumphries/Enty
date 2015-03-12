@@ -15,23 +15,18 @@
 
     public class TestDb : IDisposable
     {
-        private readonly ITestDbConfiguration configuration;
         private readonly DateTime executionTime = DateTime.Now;
+        private readonly ITestDbContextFactory contextFactory;
 
         public TestDb(ITestDbConfiguration configuration)
         {
             ConfigurationHelper.ValidateConfiguration(configuration);
-            this.configuration = configuration;
+            contextFactory = configuration.ContextFactory;
+            var testIdentity = configuration.TestIdentityProvider.GetTestIdentity();
+            ConnectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity, executionTime);
         }
 
-        public string ConnectionString
-        {
-            get
-            {
-                var testName = configuration.TestNameProvider.CurrentTestName;
-                return configuration.ConnectionStringProvider.GetConnectionString(testName, executionTime);
-            }
-        }
+        public string ConnectionString { get; private set; }
 
         public void Create()
         {
@@ -76,7 +71,7 @@
 
         private DbContext GetDbContext()
         {
-            return configuration.ContextFactory.GetDbContext(ConnectionString);
+            return contextFactory.GetDbContext(ConnectionString);
         }
     }
 }
