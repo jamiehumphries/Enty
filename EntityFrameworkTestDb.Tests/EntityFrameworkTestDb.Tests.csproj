@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDbTests.cs" />
+    <Compile Include="TestHelpers\Configurations\NUnitSqlServerCompactConfiguration.cs" />
     <Compile Include="TestHelpers\Models\Dog.cs" />
     <Compile Include="TestHelpers\Models\Person.cs" />
     <Compile Include="TestHelpers\TestDbContext.cs" />

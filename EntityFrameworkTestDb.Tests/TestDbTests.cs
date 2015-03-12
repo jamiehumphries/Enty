@@ -1,29 +1,22 @@
 ﻿namespace EntityFrameworkTestDb.Tests
 {
     using EntityFrameworkTestDb.Configuration;
-    using EntityFrameworkTestDb.NUnitHelpers;
-    using EntityFrameworkTestDb.SqlServerCompactHelpers;
     using EntityFrameworkTestDb.Tests.TestHelpers;
+    using EntityFrameworkTestDb.Tests.TestHelpers.Configurations;
     using EntityFrameworkTestDb.Tests.TestHelpers.Models;
     using FluentAssertions;
     using NUnit.Framework;
     using System.Collections.Generic;
 
-    public class TestDbTests
+    [TestFixture(typeof(NUnitSqlServerCompactConfiguration))]
+    public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration
     {
         private TestDb testDb;
-        private TestDbConfiguration configuration;
 
         [SetUp]
         public void SetUp()
         {
-            configuration = new TestDbConfiguration
-                            {
-                                TestNameProvider = new NUnitTestNameProvider(),
-                                ConnectionStringProvider = new SqlServerCompactConnectionStringProvider(),
-                                ContextFactory = new ContextFactory<TestDbContext>()
-                            };
-            testDb = new TestDb(configuration);
+            testDb = new TestDb<TConfig>();
         }
 
         [TearDown]
