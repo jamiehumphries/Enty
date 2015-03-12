@@ -243,7 +243,7 @@
         }
 
         [Test]
-        public void Can_seed_entity_as_child_of_another_seeded_entity()
+        public void Can_seed_entity_as_parent_of_newly_seeded_entity()
         {
             // Given
             var mickey = new Person { Name = "Mickey" };
@@ -261,7 +261,7 @@
         }
 
         [Test]
-        public void Can_seed_entity_as_child_of_multiple_new_seeded_entities()
+        public void Can_seed_entity_as_parent_of_multiple_newly_seeded_entities()
         {
             // Given
             var shaggy = new Person { Name = "Shaggy" };
