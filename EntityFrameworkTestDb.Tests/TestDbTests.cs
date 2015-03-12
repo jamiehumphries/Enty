@@ -201,6 +201,50 @@
             patch.Id.Should().NotBe(0);
         }
 
+        [Test]
+        public void Can_seed_entities_with_foreign_key_to_existing_entity_by_id()
+        {
+            // Given
+            var jon = new Person { Name = "Jon" };
+            using (var context = GetDbContext())
+            {
+                context.People.Add(jon);
+                context.SaveChanges();
+            }
+            var odie = new Dog { Name = "Odie", OwnerId = jon.Id };
+
+            // When
+            testDb.Seed(odie);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.Dogs.Should().Contain(d => d.Name == "Odie").Which.OwnerId.Should().Be(jon.Id).And.NotBe(0);
+            }
+        }
+
+        [Test]
+        public void Can_seed_entities_with_foreign_key_to_existing_entity_by_object()
+        {
+            // Given
+            var george = new Person { Name = "George" };
+            using (var context = GetDbContext())
+            {
+                context.People.Add(george);
+                context.SaveChanges();
+            }
+            var astro = new Dog { Name = "Astro", Owner = george };
+
+            // When
+            testDb.Seed(astro);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.Dogs.Should().Contain(d => d.Name == "Astro").Which.OwnerId.Should().Be(george.Id).And.NotBe(0);
+            }
+        }
+
         private TestDbContext GetDbContext()
         {
             return new TestDbContext(testDb.ConnectionString);
