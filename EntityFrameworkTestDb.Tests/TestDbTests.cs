@@ -97,7 +97,7 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().Contain(p => p.Name == "Jamie").Which.Should().Match<Person>(p => p.Id != 0);
+                context.People.Should().Contain(p => p.Name == "Jamie");
             }
         }
 
@@ -115,7 +115,7 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().Equal(new[] { huey, dewey, louie }, MatchedByName).And.OnlyContain(p => p.Id != 0);
+                context.People.Should().Equal(new[] { huey, dewey, louie }, MatchedByName);
             }
         }
 
@@ -133,7 +133,7 @@
             // Then
             using (var context = GetDbContext())
             {
-                context.People.Should().Equal(people, MatchedByName).And.OnlyContain(p => p.Id != 0);
+                context.People.Should().Equal(people, MatchedByName);
             }
         }
 
