@@ -224,18 +224,15 @@
         }
 
         [Test]
-        public void Can_seed_entities_with_foreign_key_to_existing_entity_by_object()
+        public void Can_seed_entities_with_foreign_key_to_previously_seeded_object()
         {
             // Given
             var george = new Person { Name = "George" };
-            using (var context = GetDbContext())
-            {
-                context.People.Add(george);
-                context.SaveChanges();
-            }
-            var astro = new Dog { Name = "Astro", Owner = george };
+            var astro = new Dog { Name = "Astro" };
 
             // When
+            testDb.Seed(george);
+            astro.Owner = george;
             testDb.Seed(astro);
 
             // Then
