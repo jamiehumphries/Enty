@@ -245,6 +245,44 @@
             }
         }
 
+        [Test]
+        public void Can_seed_entity_as_child_of_another_seeded_entity()
+        {
+            // Given
+            var mickey = new Person { Name = "Mickey" };
+            var pluto = new Dog { Name = "Pluto", Owner = mickey };
+
+            // When
+            testDb.Seed(pluto);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().Contain(p => p.Name == "Mickey");
+                context.Dogs.Should().Contain(d => d.Name == "Pluto");
+            }
+        }
+
+        [Test]
+        public void Can_seed_entity_as_child_of_multiple_new_seeded_entities()
+        {
+            // Given
+            var shaggy = new Person { Name = "Shaggy" };
+            var scoobyDoo = new Dog { Name = "Scooby Doo", Owner = shaggy };
+            var scrappyDoo = new Dog { Name = "Scrappy Doo", Owner = shaggy };
+
+            // When
+            testDb.Seed(scoobyDoo, scrappyDoo);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().ContainSingle(p => p.Name == "Shaggy");
+                context.Dogs.Should().Contain(d => d.Name == "Scooby Doo")
+                       .And.Contain(d => d.Name == "Scrappy Doo");
+            }
+        }
+
         private TestDbContext GetDbContext()
         {
             return new TestDbContext(testDb.ConnectionString);
