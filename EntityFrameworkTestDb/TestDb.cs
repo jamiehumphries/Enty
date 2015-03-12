@@ -69,6 +69,18 @@
             }
         }
 
+        public void Seed(params object[] entities)
+        {
+            using (var context = GetDbContext())
+            {
+                foreach (var entity in entities)
+                {
+                    context.Set(entity.GetType()).Add(entity);
+                }
+                context.SaveChanges();
+            }
+        }
+
         private DbContext GetDbContext()
         {
             return configuration.ContextFactory.GetDbContext(ConnectionString);

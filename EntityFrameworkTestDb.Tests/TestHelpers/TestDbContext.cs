@@ -8,5 +8,6 @@
         public TestDbContext(string nameOrConnectionString) : base(nameOrConnectionString) {}
 
         public DbSet<Person> People { get; set; }
+        public DbSet<Dog> Dogs { get; set; }
     }
 }

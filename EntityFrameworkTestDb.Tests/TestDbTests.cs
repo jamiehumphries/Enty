@@ -138,6 +138,24 @@
         }
 
         [Test]
+        public void Can_seed_entities_of_mixed_types()
+        {
+            // Given
+            var jim = new Person { Name = "Jim" };
+            var rover = new Dog { Name = "Rover" };
+
+            // When
+            testDb.Seed(jim, rover);
+
+            // Then
+            using (var context = GetDbContext())
+            {
+                context.People.Should().Contain(p => p.Name == "Jim");
+                context.Dogs.Should().Contain(d => d.Name == "Rover");
+            }
+        }
+
+        [Test]
         public void Seeded_entities_are_all_given_ids()
         {
             // Given
@@ -166,6 +184,21 @@
 
             // Then
             people.Should().OnlyContain(p => p.Id != 0);
+        }
+
+        [Test]
+        public void Seeded_mixed_type_entities_are_given_ids()
+        {
+            // Given
+            var darren = new Person { Name = "Darren" };
+            var patch = new Dog { Name = "Patch" };
+
+            // When
+            testDb.Seed(darren, patch);
+
+            // Then
+            darren.Id.Should().NotBe(0);
+            patch.Id.Should().NotBe(0);
         }
 
         private TestDbContext GetDbContext()
