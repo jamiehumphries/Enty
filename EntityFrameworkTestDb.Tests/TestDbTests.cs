@@ -2,13 +2,12 @@
 {
     using EntityFrameworkTestDb.Configuration;
     using EntityFrameworkTestDb.Tests.TestHelpers;
-    using EntityFrameworkTestDb.Tests.TestHelpers.Configurations;
     using EntityFrameworkTestDb.Tests.TestHelpers.Models;
     using FluentAssertions;
     using NUnit.Framework;
     using System.Collections.Generic;
 
-    [TestFixture(typeof(NUnitSqlServerCompactConfiguration))]
+    // Run via derived test projects targetting specific database providers.
     public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration
     {
         private TestDb testDb;

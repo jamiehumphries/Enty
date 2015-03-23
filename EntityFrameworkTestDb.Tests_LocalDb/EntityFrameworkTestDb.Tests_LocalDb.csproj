@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{90133842-1C73-40D6-B2FF-BF83A12C8862}</ProjectGuid>
+    <ProjectGuid>{5CC15707-18F3-4A83-878C-41FFC698C137}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityFrameworkTestDb.Tests</RootNamespace>
-    <AssemblyName>EntityFrameworkTestDb.Tests</AssemblyName>
+    <RootNamespace>EntityFrameworkTestDb.Tests_LocalDb</RootNamespace>
+    <AssemblyName>EntityFrameworkTestDb.Tests_LocalDb</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,19 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
@@ -58,39 +50,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDbTests.cs" />
-    <Compile Include="TestHelpers\Models\Dog.cs" />
-    <Compile Include="TestHelpers\Models\Person.cs" />
-    <Compile Include="TestHelpers\TestDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkTestDb.LocalDbHelpers\EntityFrameworkTestDb.LocalDbHelpers.csproj">
+      <Project>{5DC39564-67B0-47A0-A17E-7B2533D53FED}</Project>
+      <Name>EntityFrameworkTestDb.LocalDbHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntityFrameworkTestDb.NUnitHelpers\EntityFrameworkTestDb.NUnitHelpers.csproj">
-      <Project>{34a7b63d-a211-43c4-93b7-6ed7df578719}</Project>
+      <Project>{34A7B63D-A211-43C4-93B7-6ED7DF578719}</Project>
       <Name>EntityFrameworkTestDb.NUnitHelpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EntityFrameworkTestDb.SqlServerCompactHelpers\EntityFrameworkTestDb.SqlServerCompactHelpers.csproj">
-      <Project>{915bae9c-869b-460a-ad08-e7a317d5543c}</Project>
-      <Name>EntityFrameworkTestDb.SqlServerCompactHelpers</Name>
+    <ProjectReference Include="..\EntityFrameworkTestDb.Tests\EntityFrameworkTestDb.Tests.csproj">
+      <Project>{90133842-1C73-40D6-B2FF-BF83A12C8862}</Project>
+      <Name>EntityFrameworkTestDb.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntityFrameworkTestDb\EntityFrameworkTestDb.csproj">
-      <Project>{a046ca22-e6ee-4a4c-b548-c667e7be48ce}</Project>
+      <Project>{A046CA22-E6EE-4A4C-B548-C667E7BE48CE}</Project>
       <Name>EntityFrameworkTestDb</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    if not exist "$(TargetDir)x86" md "$(TargetDir)x86"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\x86\*.*" "$(TargetDir)x86"
-    if not exist "$(TargetDir)amd64" md "$(TargetDir)amd64"
-    xcopy /s /y "$(SolutionDir)packages\Microsoft.SqlServer.Compact.4.0.8876.1\NativeBinaries\amd64\*.*" "$(TargetDir)amd64"</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

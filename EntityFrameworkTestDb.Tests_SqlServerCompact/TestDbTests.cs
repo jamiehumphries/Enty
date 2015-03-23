@@ -1,8 +1,12 @@
-﻿namespace EntityFrameworkTestDb.Tests.TestHelpers.Configurations
+﻿namespace EntityFrameworkTestDb.Tests_SqlServerCompact
 {
     using EntityFrameworkTestDb.Configuration;
     using EntityFrameworkTestDb.NUnitHelpers;
     using EntityFrameworkTestDb.SqlServerCompactHelpers;
+    using EntityFrameworkTestDb.Tests;
+    using EntityFrameworkTestDb.Tests.TestHelpers;
+
+    public class TestDbTests : TestDbTests<NUnitSqlServerCompactConfiguration> {}
 
     public class NUnitSqlServerCompactConfiguration : ITestDbConfiguration
     {
