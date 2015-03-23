@@ -3,7 +3,6 @@
     using AutoMapper;
     using EntityFrameworkTestDb.Configuration;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
@@ -63,9 +62,24 @@
             }
         }
 
-        public void SeedMany(IEnumerable entities)
+        public ICollection<T> SeedMany<T>(IEnumerable<T> entities) where T : class
         {
-            Seed(entities.Cast<object>().ToArray());
+            return Seed(entities.ToArray());
+        }
+
+        public T Seed<T>(T entity) where T : class
+        {
+            return Seed(new[] { entity }).Single();
+        }
+
+        public ICollection<T> Seed<T>(params T[] entities) where T : class
+        {
+            using (var context = GetDbContext())
+            {
+                context.Set<T>().AddRange(entities);
+                context.SaveChanges();
+            }
+            return entities;
         }
 
         public void Seed(params object[] entities)

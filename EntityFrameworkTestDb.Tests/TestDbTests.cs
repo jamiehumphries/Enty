@@ -302,6 +302,49 @@
             }
         }
 
+        [Test]
+        public void Single_seeded_entities_are_returned()
+        {
+            // Given
+            var jack = new Person { Name = "Jack" };
+
+            // When
+            var seededEntity = testDb.Seed(jack);
+
+            // Then
+            seededEntity.Should().Be(jack);
+        }
+
+        [Test]
+        public void Multiple_seeded_entities_are_returned()
+        {
+            // Given
+            var dan = new Person { Name = "Dan" };
+            var pete = new Person { Name = "Pete" };
+            var phil = new Person { Name = "Phil" };
+
+            // When
+            var seededEntities = testDb.Seed(dan, pete, phil);
+
+            // Then
+            seededEntities.Should().BeEquivalentTo(dan, pete, phil);
+        }
+
+        [Test]
+        public void Collection_of_seeded_entities_are_returned()
+        {
+            // Given
+            var otacon = new Person { Name = "Otacon" };
+            var snake = new Person { Name = "Snake" };
+            var people = new List<Person> { otacon, snake };
+
+            // When
+            var seededEntities = testDb.SeedMany(people);
+
+            // Then
+            seededEntities.Should().BeEquivalentTo(people);
+        }
+
         private static bool MatchedByName(Person p1, Person p2)
         {
             return p1.Name == p2.Name;
