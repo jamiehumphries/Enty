@@ -6,6 +6,7 @@
     using FluentAssertions;
     using NUnit.Framework;
     using System.Collections.Generic;
+    using System.Linq;
 
     // Run via derived test projects targetting specific database providers.
     public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration<TestDbContext>
@@ -103,6 +104,7 @@
             // Then
             allPeople.Should().Contain(p => p.Name == "Wallace").Which.Dogs.Should().HaveCount(1);
             allDogs.Should().Contain(p => p.Name == "Gromit").Which.Owner.Name.Should().Be("Wallace");
+            allPeople.Should().OnlyContain(p => p.Dogs.All(d => d.Owner == p)); // Ensure cyclic references are loaded correctly.
         }
 
         [Test]

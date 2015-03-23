@@ -54,11 +54,12 @@
             }
         }
 
-        public IEnumerable<T> GetAll<T>() where T : class
+        public ICollection<T> GetAll<T>() where T : class
         {
             using (var context = GetDbContext())
             {
-                return context.Set<T>().AsEnumerable().Select(Mapper.DynamicMap<T>).ToList();
+                MappingHelper.CreateMapsForContextTypes(context);
+                return Mapper.Map<IEnumerable<T>>(context.Set<T>()).ToList();
             }
         }
 
