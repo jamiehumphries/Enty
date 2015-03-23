@@ -8,14 +8,14 @@
     using System.Collections.Generic;
 
     // Run via derived test projects targetting specific database providers.
-    public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration
+    public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration<TestDbContext>
     {
-        private TestDb testDb;
+        private TestDb<TestDbContext> testDb;
 
         [SetUp]
         public void SetUp()
         {
-            testDb = new TestDb<TConfig>();
+            testDb = new TestDb<TestDbContext, TConfig>();
         }
 
         [TearDown]
@@ -25,13 +25,19 @@
         }
 
         [Test]
+        public void Can_get_blank_db_context_from_test_db()
+        {
+            testDb.GetDbContext().Should().NotBeNull();
+        }
+
+        [Test]
         public void Can_create_database()
         {
             // When
             testDb.Create();
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.Database.Exists().Should().BeTrue();
             }
@@ -41,7 +47,7 @@
         public void Disposing_deletes_database()
         {
             // Given
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.Database.CreateIfNotExists();
             }
@@ -50,7 +56,7 @@
             testDb.Dispose();
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.Database.Exists().Should().BeFalse();
             }
@@ -64,7 +70,7 @@
             var dick = new Person { Name = "Dick" };
             var harry = new Person { Name = "Harry" };
             var people = new[] { tom, dick, harry };
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.AddRange(people);
                 context.SaveChanges();
@@ -83,7 +89,7 @@
             // Given
             var wallace = new Person { Name = "Wallace" };
             var gromit = new Dog { Name = "Gromit", Owner = wallace };
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Add(wallace);
                 context.Dogs.Add(gromit);
@@ -109,7 +115,7 @@
             testDb.Seed(jamie);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().Contain(p => p.Name == "Jamie");
             }
@@ -127,7 +133,7 @@
             testDb.Seed(huey, dewey, louie);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().Equal(new[] { huey, dewey, louie }, MatchedByName);
             }
@@ -145,7 +151,7 @@
             testDb.SeedMany(people);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().Equal(people, MatchedByName);
             }
@@ -162,7 +168,7 @@
             testDb.Seed(jim, rover);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().Contain(p => p.Name == "Jim");
                 context.Dogs.Should().Contain(d => d.Name == "Rover");
@@ -220,7 +226,7 @@
         {
             // Given
             var jon = new Person { Name = "Jon" };
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Add(jon);
                 context.SaveChanges();
@@ -231,7 +237,7 @@
             testDb.Seed(odie);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.Dogs.Should().Contain(d => d.Name == "Odie").Which.OwnerId.Should().Be(jon.Id).And.NotBe(0);
             }
@@ -250,7 +256,7 @@
             testDb.Seed(astro);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.Dogs.Should().Contain(d => d.Name == "Astro").Which.OwnerId.Should().Be(george.Id).And.NotBe(0);
             }
@@ -267,7 +273,7 @@
             testDb.Seed(pluto);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().Contain(p => p.Name == "Mickey");
                 context.Dogs.Should().Contain(d => d.Name == "Pluto");
@@ -286,7 +292,7 @@
             testDb.Seed(scoobyDoo, scrappyDoo);
 
             // Then
-            using (var context = GetDbContext())
+            using (var context = testDb.GetDbContext())
             {
                 context.People.Should().ContainSingle(p => p.Name == "Shaggy");
                 context.Dogs.Should().Contain(d => d.Name == "Scooby Doo")
@@ -294,12 +300,7 @@
             }
         }
 
-        private TestDbContext GetDbContext()
-        {
-            return new TestDbContext(testDb.ConnectionString);
-        }
-
-        private bool MatchedByName(Person p1, Person p2)
+        private static bool MatchedByName(Person p1, Person p2)
         {
             return p1.Name == p2.Name;
         }

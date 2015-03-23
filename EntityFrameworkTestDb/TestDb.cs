@@ -8,17 +8,22 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TConfiguration> : TestDb where TConfiguration : ITestDbConfiguration
+    public class TestDb : TestDb<DbContext>
     {
-        public TestDb() : base(Activator.CreateInstance<TConfiguration>()) {}
+        public TestDb(ITestDbConfiguration<DbContext> configuration) : base(configuration) {}
     }
 
-    public class TestDb : IDisposable
+    public class TestDb<TContext, TConfig> : TestDb<TContext> where TConfig : ITestDbConfiguration<TContext> where TContext : DbContext
+    {
+        public TestDb() : base(Activator.CreateInstance<TConfig>()) {}
+    }
+
+    public class TestDb<TContext> : IDisposable where TContext : DbContext
     {
         private readonly DateTime executionTime = DateTime.Now;
-        private readonly ITestDbContextFactory contextFactory;
+        private readonly ITestDbContextFactory<TContext> contextFactory;
 
-        public TestDb(ITestDbConfiguration configuration)
+        public TestDb(ITestDbConfiguration<TContext> configuration)
         {
             ConfigurationHelper.ValidateConfiguration(configuration);
             contextFactory = configuration.ContextFactory;
@@ -27,6 +32,11 @@
         }
 
         public string ConnectionString { get; private set; }
+
+        public TContext GetDbContext()
+        {
+            return contextFactory.GetDbContext(ConnectionString);
+        }
 
         public void Create()
         {
@@ -67,11 +77,6 @@
                 }
                 context.SaveChanges();
             }
-        }
-
-        private DbContext GetDbContext()
-        {
-            return contextFactory.GetDbContext(ConnectionString);
         }
     }
 }

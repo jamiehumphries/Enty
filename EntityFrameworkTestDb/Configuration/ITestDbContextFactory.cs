@@ -2,8 +2,8 @@
 {
     using System.Data.Entity;
 
-    public interface ITestDbContextFactory
+    public interface ITestDbContextFactory<out TContext> where TContext : DbContext
     {
-        DbContext GetDbContext(string connectionString);
+        TContext GetDbContext(string connectionString);
     }
 }

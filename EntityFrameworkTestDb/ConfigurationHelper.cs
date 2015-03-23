@@ -2,10 +2,11 @@
 {
     using EntityFrameworkTestDb.Configuration;
     using System;
+    using System.Data.Entity;
 
     internal static class ConfigurationHelper
     {
-        internal static void ValidateConfiguration(ITestDbConfiguration configuration)
+        internal static void ValidateConfiguration<TContext>(ITestDbConfiguration<TContext> configuration) where TContext : DbContext
         {
             if (configuration == null)
             {

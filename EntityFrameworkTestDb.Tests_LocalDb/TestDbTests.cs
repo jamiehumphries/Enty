@@ -8,17 +8,17 @@
 
     public class TestDbTests : TestDbTests<NUnitLocalDbConfiguration> {}
 
-    public class NUnitLocalDbConfiguration : ITestDbConfiguration
+    public class NUnitLocalDbConfiguration : ITestDbConfiguration<TestDbContext>
     {
         public NUnitLocalDbConfiguration()
         {
             TestIdentityProvider = new NUnitTestIdentityProvider();
             ConnectionStringProvider = new LocalDbConnectionStringProvider();
-            ContextFactory = new ContextFactory<TestDbContext>();
+            ContextFactory = new TestDbContextFactory<TestDbContext>();
         }
 
         public ITestIdentityProvider TestIdentityProvider { get; private set; }
         public IConnectionStringProvider ConnectionStringProvider { get; private set; }
-        public ITestDbContextFactory ContextFactory { get; private set; }
+        public ITestDbContextFactory<TestDbContext> ContextFactory { get; private set; }
     }
 }

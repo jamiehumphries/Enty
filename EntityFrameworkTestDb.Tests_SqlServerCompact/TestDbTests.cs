@@ -8,17 +8,17 @@
 
     public class TestDbTests : TestDbTests<NUnitSqlServerCompactConfiguration> {}
 
-    public class NUnitSqlServerCompactConfiguration : ITestDbConfiguration
+    public class NUnitSqlServerCompactConfiguration : ITestDbConfiguration<TestDbContext>
     {
         public NUnitSqlServerCompactConfiguration()
         {
             TestIdentityProvider = new NUnitTestIdentityProvider();
             ConnectionStringProvider = new SqlServerCompactConnectionStringProvider();
-            ContextFactory = new ContextFactory<TestDbContext>();
+            ContextFactory = new TestDbContextFactory<TestDbContext>();
         }
 
         public ITestIdentityProvider TestIdentityProvider { get; private set; }
         public IConnectionStringProvider ConnectionStringProvider { get; private set; }
-        public ITestDbContextFactory ContextFactory { get; private set; }
+        public ITestDbContextFactory<TestDbContext> ContextFactory { get; private set; }
     }
 }

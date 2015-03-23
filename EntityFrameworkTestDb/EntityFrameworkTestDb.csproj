@@ -52,9 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\TestDbContextFactory.cs" />
     <Compile Include="Configuration\IConnectionStringProvider.cs" />
     <Compile Include="Configuration\ITestDbContextFactory.cs" />
-    <Compile Include="Configuration\ContextFactory.cs" />
     <Compile Include="TestDb.cs" />
     <Compile Include="Configuration\TestDbConfiguration.cs" />
     <Compile Include="Configuration\ITestIdentityProvider.cs" />
