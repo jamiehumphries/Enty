@@ -4,7 +4,6 @@
     using EntityFrameworkTestDb.Tests.TestHelpers;
     using EntityFrameworkTestDb.Tests.TestHelpers.Models;
     using FluentAssertions;
-    using NUnit.Framework;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -13,26 +12,22 @@
     {
         private TestDb<TestDbContext> testDb;
 
-        [SetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
             testDb = new TestDb<TestDbContext, TConfig>();
         }
 
-        [TearDown]
-        public void TearDown()
+        public virtual void TearDown()
         {
             testDb.Dispose();
         }
 
-        [Test]
-        public void Can_get_blank_db_context_from_test_db()
+        public virtual void Can_get_blank_db_context_from_test_db()
         {
             testDb.GetDbContext().Should().NotBeNull();
         }
 
-        [Test]
-        public void Can_create_database()
+        public virtual void Can_create_database()
         {
             // When
             testDb.Create();
@@ -44,8 +39,7 @@
             }
         }
 
-        [Test]
-        public void Disposing_deletes_database()
+        public virtual void Disposing_deletes_database()
         {
             // Given
             using (var context = testDb.GetDbContext())
@@ -63,8 +57,7 @@
             }
         }
 
-        [Test]
-        public void Can_get_all_entities_of_a_type()
+        public virtual void Can_get_all_entities_of_a_type()
         {
             // Given
             var tom = new Person { Name = "Tom" };
@@ -84,8 +77,7 @@
             allPeople.Should().Equal(people, MatchedByName);
         }
 
-        [Test]
-        public void Navigation_properties_are_loaded_on_retrieved_entities()
+        public virtual void Navigation_properties_are_loaded_on_retrieved_entities()
         {
             // Given
             var wallace = new Person { Name = "Wallace" };
@@ -107,8 +99,7 @@
             allPeople.Should().OnlyContain(p => p.Dogs.All(d => d.Owner == p)); // Ensure cyclic references are loaded correctly.
         }
 
-        [Test]
-        public void Can_seed_single_entity()
+        public virtual void Can_seed_single_entity()
         {
             // Given
             var jamie = new Person { Name = "Jamie" };
@@ -123,8 +114,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_multiple_entities()
+        public virtual void Can_seed_multiple_entities()
         {
             // Given
             var huey = new Person { Name = "Huey" };
@@ -141,8 +131,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_multiple_entities_in_a_collection()
+        public virtual void Can_seed_multiple_entities_in_a_collection()
         {
             // Given
             var matt = new Person { Name = "Matt" };
@@ -159,8 +148,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_entities_of_mixed_types()
+        public virtual void Can_seed_entities_of_mixed_types()
         {
             // Given
             var jim = new Person { Name = "Jim" };
@@ -177,8 +165,7 @@
             }
         }
 
-        [Test]
-        public void Seeded_entities_are_all_given_ids()
+        public virtual void Seeded_entities_are_all_given_ids()
         {
             // Given
             var tom = new Person { Name = "Tom" };
@@ -192,8 +179,7 @@
             jerry.Id.Should().NotBe(0);
         }
 
-        [Test]
-        public void Entities_seeded_in_collection_are_all_given_ids()
+        public virtual void Entities_seeded_in_collection_are_all_given_ids()
         {
             // Given
             var fred = new Person { Name = "Fred" };
@@ -208,8 +194,7 @@
             people.Should().OnlyContain(p => p.Id != 0);
         }
 
-        [Test]
-        public void Seeded_mixed_type_entities_are_given_ids()
+        public virtual void Seeded_mixed_type_entities_are_given_ids()
         {
             // Given
             var darren = new Person { Name = "Darren" };
@@ -223,8 +208,7 @@
             patch.Id.Should().NotBe(0);
         }
 
-        [Test]
-        public void Can_seed_entities_with_foreign_key_to_existing_entity_by_id()
+        public virtual void Can_seed_entities_with_foreign_key_to_existing_entity_by_id()
         {
             // Given
             var jon = new Person { Name = "Jon" };
@@ -245,8 +229,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_entities_with_foreign_key_to_previously_seeded_object()
+        public virtual void Can_seed_entities_with_foreign_key_to_previously_seeded_object()
         {
             // Given
             var george = new Person { Name = "George" };
@@ -264,8 +247,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_entity_as_parent_of_newly_seeded_entity()
+        public virtual void Can_seed_entity_as_parent_of_newly_seeded_entity()
         {
             // Given
             var mickey = new Person { Name = "Mickey" };
@@ -282,8 +264,7 @@
             }
         }
 
-        [Test]
-        public void Can_seed_entity_as_parent_of_multiple_newly_seeded_entities()
+        public virtual void Can_seed_entity_as_parent_of_multiple_newly_seeded_entities()
         {
             // Given
             var shaggy = new Person { Name = "Shaggy" };
@@ -302,8 +283,7 @@
             }
         }
 
-        [Test]
-        public void Single_seeded_entities_are_returned()
+        public virtual void Single_seeded_entities_are_returned()
         {
             // Given
             var jack = new Person { Name = "Jack" };
@@ -315,8 +295,7 @@
             seededEntity.Should().Be(jack);
         }
 
-        [Test]
-        public void Multiple_seeded_entities_are_returned()
+        public virtual void Multiple_seeded_entities_are_returned()
         {
             // Given
             var dan = new Person { Name = "Dan" };
@@ -330,8 +309,7 @@
             seededEntities.Should().BeEquivalentTo(dan, pete, phil);
         }
 
-        [Test]
-        public void Collection_of_seeded_entities_are_returned()
+        public virtual void Collection_of_seeded_entities_are_returned()
         {
             // Given
             var otacon = new Person { Name = "Otacon" };
