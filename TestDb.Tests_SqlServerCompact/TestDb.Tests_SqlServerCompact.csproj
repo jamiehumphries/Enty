@@ -62,13 +62,13 @@
     <Compile Include="TestDbTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestDb.NUnitHelpers\TestDb.NUnitHelpers.csproj">
+    <ProjectReference Include="..\TestDb.NUnit\TestDb.NUnit.csproj">
       <Project>{34A7B63D-A211-43C4-93B7-6ED7DF578719}</Project>
-      <Name>TestDb.NUnitHelpers</Name>
+      <Name>TestDb.NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestDb.SqlServerCompactHelpers\TestDb.SqlServerCompactHelpers.csproj">
+    <ProjectReference Include="..\TestDb.SqlServerCompact\TestDb.SqlServerCompact.csproj">
       <Project>{915BAE9C-869B-460A-AD08-E7A317D5543C}</Project>
-      <Name>TestDb.SqlServerCompactHelpers</Name>
+      <Name>TestDb.SqlServerCompact</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestDb.Tests\TestDb.Tests.csproj">
       <Project>{90133842-1C73-40D6-B2FF-BF83A12C8862}</Project>

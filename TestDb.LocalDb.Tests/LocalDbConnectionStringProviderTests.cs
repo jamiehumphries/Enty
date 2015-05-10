@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb.SqlServerCompactHelpers.Tests
+﻿namespace EntityTestDb.LocalDb.Tests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -7,18 +7,42 @@
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    public class SqlServerCompactConnectionStringProviderTests
+    [TestFixture(LocalDbVersion.V11_0)]
+    [TestFixture(LocalDbVersion.ProjectsV12)]
+    public class LocalDbConnectionStringProviderTests
     {
-        private readonly SqlServerCompactConnectionStringProvider provider = new SqlServerCompactConnectionStringProvider();
+        private readonly LocalDbVersion version;
+        private LocalDbConnectionStringProvider provider;
+
+        public LocalDbConnectionStringProviderTests(LocalDbVersion version)
+        {
+            this.version = version;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            provider = new LocalDbConnectionStringProvider(version);
+        }
 
         [Test]
-        public void Data_source_for_connection_string_is_sdf_file()
+        public void Data_source_for_connection_string_is_local_db()
         {
             // When
             var connectionString = provider.GetConnectionString("Some_unit_test", DateTime.Now);
 
             // Then
-            connectionString.DataSource().Should().EndWith(".sdf");
+            connectionString.DataSource().Should().Be(@"(LocalDb)\" + version.Name());
+        }
+
+        [Test]
+        public void Database_file_should_have_mdf_extension()
+        {
+            // When
+            var connectionString = provider.GetConnectionString("Some_unit_test", DateTime.Now);
+
+            // Then
+            connectionString.AttachDbFilename().Should().EndWith(".mdf");
         }
 
         [Test]
@@ -38,7 +62,8 @@
             var connectionStrings = new[] { connectionString1A, connectionString1B, connectionString2A, connectionString2B };
 
             // Then
-            connectionStrings.Select(c => c.DataSource()).Should().OnlyHaveUniqueItems();
+            connectionStrings.Select(c => c.AttachDbFilename()).Should().OnlyHaveUniqueItems();
+            connectionStrings.Select(c => c.InitialCatalog()).Should().OnlyHaveUniqueItems();
         }
 
         [TestCase("Some_unit_test")]
@@ -50,7 +75,8 @@
             var connectionString = provider.GetConnectionString(testName, DateTime.Now);
 
             // Then
-            ((Action)(() => new FileInfo(connectionString.DataSource()))).ShouldNotThrow();
+            // ReSharper disable once ObjectCreationAsStatement
+            ((Action)(() => new FileInfo(connectionString.AttachDbFilename()))).ShouldNotThrow();
         }
     }
 
@@ -58,7 +84,23 @@
     {
         internal static string DataSource(this string connectionString)
         {
-            return Regex.Match(connectionString, @"(?<=Data Source=)[^;]*").ToString();
+            return connectionString.GetPart("Data Source");
+        }
+
+        internal static string AttachDbFilename(this string connectionString)
+        {
+            return connectionString.GetPart("AttachDbFilename");
+        }
+
+        internal static string InitialCatalog(this string connectionString)
+        {
+            return connectionString.GetPart("Initial Catalog");
+        }
+
+        private static string GetPart(this string connectionString, string part)
+        {
+            var pattern = String.Format(@"(?<={0}=)[^;]*", part);
+            return Regex.Match(connectionString, pattern).ToString();
         }
     }
 }

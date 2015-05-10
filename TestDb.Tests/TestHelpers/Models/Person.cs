@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb.Tests.TestHelpers.Models
+﻿namespace EntityTestDb.Tests.Test.Models
 {
     using System.Collections.Generic;
 

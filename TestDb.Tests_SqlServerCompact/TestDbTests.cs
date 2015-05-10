@@ -1,11 +1,11 @@
 ﻿namespace EntityTestDb.Tests_SqlServerCompact
 {
     using EntityTestDb.Configuration;
-    using EntityTestDb.NUnitHelpers;
-    using EntityTestDb.SqlServerCompactHelpers;
+    using EntityTestDb.NUnit;
+    using EntityTestDb.SqlServerCompact;
     using EntityTestDb.Tests;
-    using EntityTestDb.Tests.TestHelpers;
-    using NUnit.Framework;
+    using EntityTestDb.Tests.Test;
+    using global::NUnit.Framework;
 
     public class TestDbTests_SqlServerCompact : TestDbTests<NUnitSqlServerCompactConfiguration>
     {

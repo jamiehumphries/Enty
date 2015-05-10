@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb.LocalDbHelpers
+﻿namespace EntityTestDb.LocalDb
 {
     using System;
 

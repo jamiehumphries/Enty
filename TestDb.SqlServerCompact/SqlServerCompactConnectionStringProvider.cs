@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb.SqlServerCompactHelpers
+﻿namespace EntityTestDb.SqlServerCompact
 {
     using EntityTestDb.Configuration;
     using System;

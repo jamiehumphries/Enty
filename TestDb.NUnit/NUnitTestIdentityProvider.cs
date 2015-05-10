@@ -1,7 +1,7 @@
-﻿namespace EntityTestDb.NUnitHelpers
+﻿namespace EntityTestDb.NUnit
 {
     using EntityTestDb.Configuration;
-    using NUnit.Framework;
+    using global::NUnit.Framework;
 
     public class NUnitTestIdentityProvider : ITestIdentityProvider
     {

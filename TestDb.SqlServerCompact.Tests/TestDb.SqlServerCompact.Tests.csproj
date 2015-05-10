@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}</ProjectGuid>
+    <ProjectGuid>{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityTestDb.NUnitHelpers.Tests</RootNamespace>
-    <AssemblyName>TestDb.NUnitHelpers.Tests</AssemblyName>
+    <RootNamespace>EntityTestDb.SqlServerCompact.Tests</RootNamespace>
+    <AssemblyName>TestDb.SqlServerCompact.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,18 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SqlServerCompactConnectionStringProviderTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NUnitTestIdentityProviderTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestDb.NUnitHelpers\TestDb.NUnitHelpers.csproj">
-      <Project>{34A7B63D-A211-43C4-93B7-6ED7DF578719}</Project>
-      <Name>TestDb.NUnitHelpers</Name>
+    <ProjectReference Include="..\TestDb.SqlServerCompact\TestDb.SqlServerCompact.csproj">
+      <Project>{915BAE9C-869B-460A-AD08-E7A317D5543C}</Project>
+      <Name>TestDb.SqlServerCompact</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestDb\TestDb.csproj">
       <Project>{A046CA22-E6EE-4A4C-B548-C667E7BE48CE}</Project>

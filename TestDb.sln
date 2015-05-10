@@ -7,17 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb", "TestDb\TestDb.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.Tests", "TestDb.Tests\TestDb.Tests.csproj", "{90133842-1C73-40D6-B2FF-BF83A12C8862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.NUnitHelpers", "TestDb.NUnitHelpers\TestDb.NUnitHelpers.csproj", "{34A7B63D-A211-43C4-93B7-6ED7DF578719}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.NUnit", "TestDb.NUnit\TestDb.NUnit.csproj", "{34A7B63D-A211-43C4-93B7-6ED7DF578719}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.NUnitHelpers.Tests", "TestDb.NUnitHelpers.Tests\TestDb.NUnitHelpers.Tests.csproj", "{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.NUnit.Tests", "TestDb.NUnit.Tests\TestDb.NUnit.Tests.csproj", "{9264D747-F9D8-40CC-A88A-FCB69F3EE99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.SqlServerCompactHelpers", "TestDb.SqlServerCompactHelpers\TestDb.SqlServerCompactHelpers.csproj", "{915BAE9C-869B-460A-AD08-E7A317D5543C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.SqlServerCompact", "TestDb.SqlServerCompact\TestDb.SqlServerCompact.csproj", "{915BAE9C-869B-460A-AD08-E7A317D5543C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.SqlServerCompactHelpers.Tests", "TestDb.SqlServerCompactHelpers.Tests\TestDb.SqlServerCompactHelpers.Tests.csproj", "{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.SqlServerCompact.Tests", "TestDb.SqlServerCompact.Tests\TestDb.SqlServerCompact.Tests.csproj", "{BFE4A717-8100-4E6F-B79E-AE3E9C18FA89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.LocalDbHelpers", "TestDb.LocalDbHelpers\TestDb.LocalDbHelpers.csproj", "{5DC39564-67B0-47A0-A17E-7B2533D53FED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.LocalDb", "TestDb.LocalDb\TestDb.LocalDb.csproj", "{5DC39564-67B0-47A0-A17E-7B2533D53FED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.LocalDbHelpers.Tests", "TestDb.LocalDbHelpers.Tests\TestDb.LocalDbHelpers.Tests.csproj", "{6E90FCAF-D234-4B15-B9DB-8F035BC6F6B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.LocalDb.Tests", "TestDb.LocalDb.Tests\TestDb.LocalDb.Tests.csproj", "{6E90FCAF-D234-4B15-B9DB-8F035BC6F6B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDb.Tests_LocalDb", "TestDb.Tests_LocalDb\TestDb.Tests_LocalDb.csproj", "{5CC15707-18F3-4A83-878C-41FFC698C137}"
 EndProject

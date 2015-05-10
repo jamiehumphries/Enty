@@ -55,13 +55,13 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestDb.LocalDbHelpers\TestDb.LocalDbHelpers.csproj">
+    <ProjectReference Include="..\TestDb.LocalDb\TestDb.LocalDb.csproj">
       <Project>{5DC39564-67B0-47A0-A17E-7B2533D53FED}</Project>
-      <Name>TestDb.LocalDbHelpers</Name>
+      <Name>TestDb.LocalDb</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestDb.NUnitHelpers\TestDb.NUnitHelpers.csproj">
+    <ProjectReference Include="..\TestDb.NUnit\TestDb.NUnit.csproj">
       <Project>{34A7B63D-A211-43C4-93B7-6ED7DF578719}</Project>
-      <Name>TestDb.NUnitHelpers</Name>
+      <Name>TestDb.NUnit</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestDb.Tests\TestDb.Tests.csproj">
       <Project>{90133842-1C73-40D6-B2FF-BF83A12C8862}</Project>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6E90FCAF-D234-4B15-B9DB-8F035BC6F6B4}</ProjectGuid>
+    <ProjectGuid>{5DC39564-67B0-47A0-A17E-7B2533D53FED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityTestDb.LocalDbHelpers.Tests</RootNamespace>
-    <AssemblyName>TestDb.LocalDbHelpers.Tests</AssemblyName>
+    <RootNamespace>EntityTestDb.LocalDb</RootNamespace>
+    <AssemblyName>TestDb.LocalDb</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,15 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions.Core">
-      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,23 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalDbConnectionStringProviderTests.cs" />
+    <Compile Include="LocalDbVersion.cs" />
+    <Compile Include="LocalDbConnectionStringProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestDb.LocalDbHelpers\TestDb.LocalDbHelpers.csproj">
-      <Project>{5DC39564-67B0-47A0-A17E-7B2533D53FED}</Project>
-      <Name>TestDb.LocalDbHelpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestDb\TestDb.csproj">
       <Project>{A046CA22-E6EE-4A4C-B548-C667E7BE48CE}</Project>
       <Name>TestDb</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

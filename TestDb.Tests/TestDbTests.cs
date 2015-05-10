@@ -1,8 +1,8 @@
 ﻿namespace EntityTestDb.Tests
 {
     using EntityTestDb.Configuration;
-    using EntityTestDb.Tests.TestHelpers;
-    using EntityTestDb.Tests.TestHelpers.Models;
+    using EntityTestDb.Tests.Test;
+    using EntityTestDb.Tests.Test.Models;
     using FluentAssertions;
     using System.Collections.Generic;
     using System.Linq;
