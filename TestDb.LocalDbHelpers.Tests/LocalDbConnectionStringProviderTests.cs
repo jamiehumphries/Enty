@@ -7,9 +7,23 @@
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    [TestFixture(LocalDbVersion.V11_0)]
+    [TestFixture(LocalDbVersion.ProjectsV12)]
     public class LocalDbConnectionStringProviderTests
     {
-        private readonly LocalDbConnectionStringProvider provider = new LocalDbConnectionStringProvider();
+        private readonly LocalDbVersion version;
+        private LocalDbConnectionStringProvider provider;
+
+        public LocalDbConnectionStringProviderTests(LocalDbVersion version)
+        {
+            this.version = version;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            provider = new LocalDbConnectionStringProvider(version);
+        }
 
         [Test]
         public void Data_source_for_connection_string_is_local_db()
@@ -18,7 +32,7 @@
             var connectionString = provider.GetConnectionString("Some_unit_test", DateTime.Now);
 
             // Then
-            connectionString.DataSource().Should().Be(@"(LocalDb)\v11.0");
+            connectionString.DataSource().Should().Be(@"(LocalDb)\" + version.Name());
         }
 
         [Test]
@@ -61,6 +75,7 @@
             var connectionString = provider.GetConnectionString(testName, DateTime.Now);
 
             // Then
+            // ReSharper disable once ObjectCreationAsStatement
             ((Action)(() => new FileInfo(connectionString.AttachDbFilename()))).ShouldNotThrow();
         }
     }

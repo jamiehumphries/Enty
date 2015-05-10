@@ -6,6 +6,15 @@
 
     public class LocalDbConnectionStringProvider : IConnectionStringProvider
     {
+        private readonly LocalDbVersion version;
+
+        public LocalDbConnectionStringProvider() : this(LocalDbVersion.ProjectsV12) {}
+
+        public LocalDbConnectionStringProvider(LocalDbVersion version)
+        {
+            this.version = version;
+        }
+
         public string GetConnectionString(string testName, DateTime executionTime)
         {
             var cleanedTestName = String.Concat(testName.Split(Path.GetInvalidFileNameChars()));
@@ -15,7 +24,8 @@
                 dbFileName = dbFileName.Substring(0, 50) + "…" + dbFileName.Substring(dbFileName.Length - 50);
             }
             var dbFilePath = Path.Combine(Directory.GetCurrentDirectory(), dbFileName + ".mdf");
-            return String.Format(@"Data Source=(LocalDb)\v11.0;AttachDbFilename={0};Initial Catalog={1};Integrated Security=True;MultipleActiveResultSets=True;", dbFilePath, dbFileName);
+            return String.Format(@"Data Source=(LocalDb)\{0};AttachDbFilename={1};Initial Catalog={2};Integrated Security=True;MultipleActiveResultSets=True;",
+                version.Name(), dbFilePath, dbFileName);
         }
     }
 }

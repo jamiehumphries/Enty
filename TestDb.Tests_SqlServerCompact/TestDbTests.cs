@@ -7,7 +7,7 @@
     using EntityTestDb.Tests.TestHelpers;
     using NUnit.Framework;
 
-    public class TestDbTests : TestDbTests<NUnitSqlServerCompactConfiguration>
+    public class TestDbTests_SqlServerCompact : TestDbTests<NUnitSqlServerCompactConfiguration>
     {
         [SetUp]
         public override void SetUp()

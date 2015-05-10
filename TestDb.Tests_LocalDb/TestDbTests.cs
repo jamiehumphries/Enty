@@ -7,7 +7,9 @@
     using EntityTestDb.Tests.TestHelpers;
     using NUnit.Framework;
 
-    public class TestDbTests : TestDbTests<NUnitLocalDbConfiguration>
+    [TestFixture(typeof(NUnitLocalDbV11Configuration))]
+    [TestFixture(typeof(NUnitLocalDbV12Configuration))]
+    public class TestDbTests_LocalDb<T> : TestDbTests<T> where T : ITestDbConfiguration<TestDbContext>
     {
         [SetUp]
         public override void SetUp()
@@ -136,12 +138,22 @@
         }
     }
 
+    public class NUnitLocalDbV11Configuration : NUnitLocalDbConfiguration
+    {
+        public NUnitLocalDbV11Configuration() : base(LocalDbVersion.V11_0) {}
+    }
+
+    public class NUnitLocalDbV12Configuration : NUnitLocalDbConfiguration
+    {
+        public NUnitLocalDbV12Configuration() : base(LocalDbVersion.ProjectsV12) {}
+    }
+
     public class NUnitLocalDbConfiguration : ITestDbConfiguration<TestDbContext>
     {
-        public NUnitLocalDbConfiguration()
+        public NUnitLocalDbConfiguration(LocalDbVersion version)
         {
             TestIdentityProvider = new NUnitTestIdentityProvider();
-            ConnectionStringProvider = new LocalDbConnectionStringProvider();
+            ConnectionStringProvider = new LocalDbConnectionStringProvider(version);
             TestDbContextFactory = new TestDbContextFactory<TestDbContext>();
         }
 
