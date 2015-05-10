@@ -7,11 +7,6 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb : TestDb<DbContext>
-    {
-        public TestDb(ITestDbConfiguration<DbContext> configuration) : base(configuration) {}
-    }
-
     public class TestDb<TContext, TConfig> : TestDb<TContext> where TConfig : ITestDbConfiguration<TContext> where TContext : DbContext
     {
         public TestDb() : base(Activator.CreateInstance<TConfig>()) {}
@@ -28,6 +23,14 @@
             contextFactory = configuration.TestDbContextFactory;
             var testIdentity = configuration.TestIdentityProvider.GetTestIdentity();
             ConnectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity, executionTime);
+        }
+
+        public TestDb(string connectionString) : this(connectionString, new TestDbContextFactory<TContext>()) {}
+
+        public TestDb(string connectionString, ITestDbContextFactory<TContext> contextFactory)
+        {
+            ConnectionString = connectionString;
+            this.contextFactory = contextFactory;
         }
 
         public string ConnectionString { get; private set; }
