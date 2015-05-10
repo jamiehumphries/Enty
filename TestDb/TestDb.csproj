@@ -52,9 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ITestDbConfiguration.cs" />
+    <Compile Include="Configuration\ITestDbContextFactory.cs" />
     <Compile Include="Configuration\TestDbContextFactory.cs" />
     <Compile Include="Configuration\IConnectionStringProvider.cs" />
-    <Compile Include="Configuration\ITestDbContextFactory.cs" />
     <Compile Include="MappingHelper.cs" />
     <Compile Include="TestDb.cs" />
     <Compile Include="Configuration\TestDbConfiguration.cs" />

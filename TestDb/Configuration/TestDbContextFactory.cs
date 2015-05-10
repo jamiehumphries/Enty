@@ -7,7 +7,7 @@
     {
         private readonly Func<string, TContext> dbContextFromConnectionString;
 
-        public TestDbContextFactory() : this(cs => (TContext)Activator.CreateInstance(typeof(TContext), cs)) {}
+        public TestDbContextFactory() : this(connectionString => (TContext)Activator.CreateInstance(typeof(TContext), connectionString)) {}
 
         public TestDbContextFactory(Func<string, TContext> dbContextFromConnectionString)
         {

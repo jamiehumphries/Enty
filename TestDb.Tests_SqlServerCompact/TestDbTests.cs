@@ -142,11 +142,11 @@
         {
             TestIdentityProvider = new NUnitTestIdentityProvider();
             ConnectionStringProvider = new SqlServerCompactConnectionStringProvider();
-            ContextFactory = new TestDbContextFactory<TestDbContext>();
+            TestDbContextFactory = new TestDbContextFactory<TestDbContext>();
         }
 
         public ITestIdentityProvider TestIdentityProvider { get; private set; }
         public IConnectionStringProvider ConnectionStringProvider { get; private set; }
-        public ITestDbContextFactory<TestDbContext> ContextFactory { get; private set; }
+        public ITestDbContextFactory<TestDbContext> TestDbContextFactory { get; private set; }
     }
 }

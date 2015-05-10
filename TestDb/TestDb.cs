@@ -25,7 +25,7 @@
         public TestDb(ITestDbConfiguration<TContext> configuration)
         {
             ConfigurationHelper.ValidateConfiguration(configuration);
-            contextFactory = configuration.ContextFactory;
+            contextFactory = configuration.TestDbContextFactory;
             var testIdentity = configuration.TestIdentityProvider.GetTestIdentity();
             ConnectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity, executionTime);
         }

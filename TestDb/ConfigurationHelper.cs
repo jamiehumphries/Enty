@@ -20,9 +20,9 @@
             {
                 throw new ArgumentException("The ConnectionStringProvider of the configuration argument cannot be null.");
             }
-            if (configuration.ContextFactory == null)
+            if (configuration.TestDbContextFactory == null)
             {
-                throw new ArgumentException("The ContextFactory of the configuration argument cannot be null.");
+                throw new ArgumentException("The TestDbContextFactory of the configuration argument cannot be null.");
             }
         }
     }
