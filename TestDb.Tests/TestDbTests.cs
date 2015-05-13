@@ -14,7 +14,7 @@
 
         public virtual void SetUp()
         {
-            testDb = new TestDb<TestDbContext, TConfig>();
+            testDb = TestDb.Create<TestDbContext, TConfig>();
         }
 
         public virtual void TearDown()
@@ -30,7 +30,7 @@
         public virtual void Can_create_database()
         {
             // When
-            testDb.Create();
+            testDb.CreateIfNotExists();
 
             // Then
             using (var context = testDb.GetDbContext())

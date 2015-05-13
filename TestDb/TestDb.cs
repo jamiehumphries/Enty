@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb
+namespace EntityTestDb
 {
     using AutoMapper;
     using EntityTestDb.Configuration;
@@ -7,27 +7,21 @@
     using System.Data.Entity;
     using System.Linq;
 
-    public class TestDb<TContext, TConfig> : TestDb<TContext> where TConfig : ITestDbConfiguration<TContext> where TContext : DbContext
+    public class TestDb<TContext> : TestDb, IDisposable where TContext : DbContext
     {
-        public TestDb() : base(Activator.CreateInstance<TConfig>()) {}
+        public TestDb(string connectionString, ITestDbContextFactory<TContext> contextFactory) : base(connectionString, contextFactory) {}
+
+        public new TContext GetDbContext()
+        {
+            return (TContext)base.GetDbContext();
+        }
     }
 
-    public class TestDb<TContext> : IDisposable where TContext : DbContext
+    public partial class TestDb
     {
-        private readonly DateTime executionTime = DateTime.Now;
-        private readonly ITestDbContextFactory<TContext> contextFactory;
+        private readonly ITestDbContextFactory<DbContext> contextFactory;
 
-        public TestDb(ITestDbConfiguration<TContext> configuration)
-        {
-            ConfigurationHelper.ValidateConfiguration(configuration);
-            contextFactory = configuration.TestDbContextFactory;
-            var testIdentity = configuration.TestIdentityProvider.GetTestIdentity();
-            ConnectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity, executionTime);
-        }
-
-        public TestDb(string connectionString) : this(connectionString, new TestDbContextFactory<TContext>()) {}
-
-        public TestDb(string connectionString, ITestDbContextFactory<TContext> contextFactory)
+        public TestDb(string connectionString, ITestDbContextFactory<DbContext> contextFactory)
         {
             ConnectionString = connectionString;
             this.contextFactory = contextFactory;
@@ -35,12 +29,12 @@
 
         public string ConnectionString { get; private set; }
 
-        public TContext GetDbContext()
+        public DbContext GetDbContext()
         {
             return contextFactory.GetDbContext(ConnectionString);
         }
 
-        public void Create()
+        public void CreateIfNotExists()
         {
             using (var context = GetDbContext())
             {

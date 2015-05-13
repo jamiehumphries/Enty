@@ -61,6 +61,7 @@
     <Compile Include="Configuration\TestDbConfiguration.cs" />
     <Compile Include="Configuration\ITestIdentityProvider.cs" />
     <Compile Include="ConfigurationHelper.cs" />
+    <Compile Include="TestDbCreation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
