@@ -6,19 +6,21 @@
     public enum LocalDbVersion
     {
         V11_0,
+        MSSQLLocalDb,
         ProjectsV12
     }
 
-    public static class LocalDbVersionExtensions
+    internal static class LocalDbVersionExtensions
     {
-        public static string Name(this LocalDbVersion version)
+        internal static string ToVersionString(this LocalDbVersion version)
         {
             switch (version)
             {
                 case LocalDbVersion.V11_0:
                     return "v11.0";
+                case LocalDbVersion.MSSQLLocalDb:
                 case LocalDbVersion.ProjectsV12:
-                    return "ProjectsV12";
+                    return version.ToString();
                 default:
                     throw new ArgumentOutOfRangeException("version", version, null);
             }

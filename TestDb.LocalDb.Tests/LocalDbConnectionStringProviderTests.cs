@@ -7,22 +7,14 @@
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    [TestFixture(LocalDbVersion.V11_0)]
-    [TestFixture(LocalDbVersion.ProjectsV12)]
     public class LocalDbConnectionStringProviderTests
     {
-        private readonly LocalDbVersion version;
         private LocalDbConnectionStringProvider provider;
-
-        public LocalDbConnectionStringProviderTests(LocalDbVersion version)
-        {
-            this.version = version;
-        }
 
         [SetUp]
         public void SetUp()
         {
-            provider = new LocalDbConnectionStringProvider(version);
+            provider = new LocalDbConnectionStringProvider();
         }
 
         [Test]
@@ -32,7 +24,7 @@
             var connectionString = provider.GetConnectionString("Some_unit_test", DateTime.Now);
 
             // Then
-            connectionString.DataSource().Should().Be(@"(LocalDb)\" + version.Name());
+            connectionString.DataSource().Should().Be(@"(LocalDb)\MSSQLLocalDb");
         }
 
         [Test]
