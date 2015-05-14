@@ -3,7 +3,9 @@
     using EntityTestDb.Configuration;
     using EntityTestDb.Tests.Test;
     using EntityTestDb.Tests.TestHelpers;
+    using FluentAssertions;
     using global::NUnit.Framework;
+    using NCrunch.Framework;
     using System;
     using System.Data.Entity;
 
@@ -79,7 +81,7 @@
             testDb = TestDb.Create(configuration);
 
             // Then
-            testDb.Should().BeAssignableTo<TestDb<TestDbContext>>();
+            testDb.GetDbContext().Should().NotBeNull().And.BeAssignableTo<TestDbContext>();
             testDb.Should().Exist();
         }
 
@@ -100,7 +102,7 @@
             testDb = TestDb.Create<TestDbContext>(connectionString);
 
             // Then
-            testDb.Should().BeAssignableTo<TestDb<TestDbContext>>();
+            testDb.GetDbContext().Should().NotBeNull().And.BeAssignableTo<TestDbContext>();
             testDb.Should().Exist();
         }
 
@@ -121,7 +123,7 @@
             testDb = TestDb.Create(connectionString, new TestDbContextFactory<TestDbContext>());
 
             // Then
-            testDb.Should().BeAssignableTo<TestDb<TestDbContext>>();
+            testDb.GetDbContext().Should().NotBeNull().And.BeAssignableTo<TestDbContext>();
             testDb.Should().Exist();
         }
 
