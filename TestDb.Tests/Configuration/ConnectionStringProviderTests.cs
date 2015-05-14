@@ -3,7 +3,6 @@
     using EntityTestDb.Configuration;
     using FluentAssertions;
     using global::NUnit.Framework;
-    using System;
 
     public class ConnectionStringProviderTests
     {
@@ -14,7 +13,7 @@
             var provider = new ConnectionStringProvider("dummy connection string");
 
             // When
-            var connectionString = provider.GetConnectionString("Test_name", DateTime.Now);
+            var connectionString = provider.GetConnectionString("Test_name");
 
             // Then
             connectionString.Should().Be("dummy connection string");
@@ -24,13 +23,13 @@
         public void Uses_delegate_from_constructor()
         {
             // Given
-            var provider = new ConnectionStringProvider((testName, executionDate) => testName + executionDate.ToString("yyyyMMdd"));
+            var provider = new ConnectionStringProvider(testName => testName + "ConnectionString");
 
             // When
-            var connectionString = provider.GetConnectionString("Test", new DateTime(1989, 05, 19));
+            var connectionString = provider.GetConnectionString("Test");
 
             // Then
-            connectionString.Should().Be("Test19890519");
+            connectionString.Should().Be("TestConnectionString");
         }
     }
 }

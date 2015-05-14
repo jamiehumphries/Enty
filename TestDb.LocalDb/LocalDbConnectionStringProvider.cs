@@ -2,10 +2,12 @@
 {
     using EntityTestDb.Configuration;
     using System;
+    using System.Diagnostics;
     using System.IO;
 
     public class LocalDbConnectionStringProvider : IConnectionStringProvider
     {
+        private static readonly Stopwatch StopWatch = Stopwatch.StartNew();
         private readonly string version;
 
         public LocalDbConnectionStringProvider() : this(LocalDbVersion.MSSQLLocalDb) {}
@@ -17,10 +19,10 @@
             this.version = version;
         }
 
-        public string GetConnectionString(string testName, DateTime executionTime)
+        public string GetConnectionString(string testName)
         {
             var cleanedTestName = String.Concat(testName.Split(Path.GetInvalidFileNameChars()));
-            var dbFileName = cleanedTestName + executionTime.Ticks;
+            var dbFileName = "TestDb_" + cleanedTestName + StopWatch.ElapsedTicks;
             if (dbFileName.Length > 100)
             {
                 dbFileName = dbFileName.Substring(0, 50) + "…" + dbFileName.Substring(dbFileName.Length - 50);

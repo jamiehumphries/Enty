@@ -4,18 +4,18 @@
 
     public class ConnectionStringProvider : IConnectionStringProvider
     {
-        private readonly Func<string, DateTime, string> getConnectionString;
+        private readonly Func<string, string> getConnectionString;
 
-        public ConnectionStringProvider(string connectionString) : this((testName, executionTime) => connectionString) {}
+        public ConnectionStringProvider(string connectionString) : this(testName => connectionString) {}
 
-        public ConnectionStringProvider(Func<string, DateTime, string> getConnectionString)
+        public ConnectionStringProvider(Func<string, string> getConnectionString)
         {
             this.getConnectionString = getConnectionString;
         }
 
-        public string GetConnectionString(string testName, DateTime executionTime)
+        public string GetConnectionString(string testName)
         {
-            return getConnectionString(testName, executionTime);
+            return getConnectionString(testName);
         }
     }
 }

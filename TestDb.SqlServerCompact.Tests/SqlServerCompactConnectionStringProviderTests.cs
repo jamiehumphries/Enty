@@ -15,27 +15,20 @@
         public void Data_source_for_connection_string_is_sdf_file()
         {
             // When
-            var connectionString = provider.GetConnectionString("Some_unit_test", DateTime.Now);
+            var connectionString = provider.GetConnectionString("Some_unit_test");
 
             // Then
             connectionString.DataSource().Should().EndWith(".sdf");
         }
 
-        [Test]
-        public void Connection_string_is_unique_by_test_name_and_execution_time()
+        [TestCase("Some_test_name", "Other_test_name")] // Different test names.
+        [TestCase("Some_test_name", "Some_test_name")] // Same test name.
+        public void Connection_strings_are_unique(string testName1, string testName2)
         {
-            // Given
-            const string testName1 = "Some_unit_test";
-            const string testName2 = "A_different_unit_test";
-            var executionTimeA = DateTime.Now;
-            var executionTimeB = DateTime.Now.AddMilliseconds(1);
-
             // When
-            var connectionString1A = provider.GetConnectionString(testName1, executionTimeA);
-            var connectionString1B = provider.GetConnectionString(testName1, executionTimeB);
-            var connectionString2A = provider.GetConnectionString(testName2, executionTimeA);
-            var connectionString2B = provider.GetConnectionString(testName2, executionTimeB);
-            var connectionStrings = new[] { connectionString1A, connectionString1B, connectionString2A, connectionString2B };
+            var connectionString1 = provider.GetConnectionString(testName1);
+            var connectionString2 = provider.GetConnectionString(testName2);
+            var connectionStrings = new[] { connectionString1, connectionString2 };
 
             // Then
             connectionStrings.Select(c => c.DataSource()).Should().OnlyHaveUniqueItems();
@@ -47,7 +40,7 @@
         public void Connection_strings_data_source_is_valid_file_path(string testName)
         {
             // When
-            var connectionString = provider.GetConnectionString(testName, DateTime.Now);
+            var connectionString = provider.GetConnectionString(testName);
 
             // Then
             ((Action)(() => new FileInfo(connectionString.DataSource()))).ShouldNotThrow();

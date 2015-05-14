@@ -27,7 +27,7 @@
         {
             ConfigurationHelper.ValidateConfiguration(configuration);
             var testIdentity = configuration.TestIdentityProvider.GetTestIdentity();
-            var connectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity, DateTime.Now);
+            var connectionString = configuration.ConnectionStringProvider.GetConnectionString(testIdentity);
             return Create(connectionString, configuration.TestDbContextFactory);
         }
 
