@@ -10,8 +10,8 @@
         {
             Configuration = new TestDbConfiguration<DbContext>
                             {
-                                TestIdentityProvider = new TestIdentityProvider(() => ""),
-                                ConnectionStringProvider = new ConnectionStringProvider(Guid.NewGuid().ToString()),
+                                TestIdentityProvider = new TestIdentityProvider(() => Guid.NewGuid().ToString()),
+                                ConnectionStringProvider = new ConnectionStringProvider(testIdentity => testIdentity),
                                 TestDbContextFactory = new TestDbContextFactory<DbContext>()
                             };
         }
