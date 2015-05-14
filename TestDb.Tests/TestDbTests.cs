@@ -1,11 +1,12 @@
 ﻿namespace EntityTestDb.Tests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using EntityTestDb.Configuration;
     using EntityTestDb.Tests.Test;
     using EntityTestDb.Tests.Test.Models;
     using FluentAssertions;
-    using System.Collections.Generic;
-    using System.Linq;
 
     // Run via derived test projects targetting specific database providers.
     public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration<TestDbContext>
@@ -14,7 +15,7 @@
 
         public virtual void SetUp()
         {
-            testDb = TestDb.Create<TestDbContext, TConfig>();
+            testDb = TestDb.Create(Activator.CreateInstance<TConfig>());
         }
 
         public virtual void TearDown()

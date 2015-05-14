@@ -4,7 +4,6 @@
     using EntityTestDb.Tests.Test;
     using EntityTestDb.Tests.TestHelpers;
     using global::NUnit.Framework;
-    using NCrunch.Framework;
     using System;
     using System.Data.Entity;
 
@@ -29,31 +28,31 @@
         }
 
         [Test]
-        [ExclusivelyUses("TestConfigConnectionString")]
-        public void Can_create_non_generic_test_db_using_configuration_class()
+        [ExclusivelyUses("GlobalConfiguration")]
+        public void Can_create_non_generic_db_using_global_configuration()
         {
             // Given
-            TestConfig.ConnectionString = connectionString;
+            TestDb.Configuration = new NonGenericTestConfig(connectionString);
 
             // When
-            testDb = TestDb.Create<NonGenericTestConfig>();
+            testDb = TestDb.Create();
 
             // Then
             testDb.Should().Exist();
         }
 
         [Test]
-        [ExclusivelyUses("TestConfigConnectionString")]
-        public void Can_create_generic_test_db_using_configuration_class()
+        [ExclusivelyUses("GlobalConfiguration")]
+        public void Can_create_generic_db_using_global_configuration()
         {
             // Given
-            TestConfig.ConnectionString = connectionString;
+            TestDb.Configuration = new GenericTestConfig(connectionString);
 
             // When
-            testDb = TestDb.Create<TestDbContext, GenericTestConfig>();
+            testDb = TestDb.Create<TestDbContext>();
 
             // Then
-            testDb.Should().BeAssignableTo<TestDb<TestDbContext>>();
+            testDb.GetDbContext().Should().NotBeNull().And.BeAssignableTo<TestDbContext>();
             testDb.Should().Exist();
         }
 
@@ -126,27 +125,18 @@
             testDb.Should().Exist();
         }
 
-        public static class TestConfig
-        {
-            public static string ConnectionString;
-        }
-
         public class NonGenericTestConfig : TestConfig<DbContext>
         {
-            public NonGenericTestConfig() {}
             public NonGenericTestConfig(string connectionString) : base(connectionString) {}
         }
 
         public class GenericTestConfig : TestConfig<TestDbContext>
         {
-            public GenericTestConfig() {}
             public GenericTestConfig(string connectionString) : base(connectionString) {}
         }
 
         public class TestConfig<TContext> : TestDbConfiguration<TContext> where TContext : DbContext
         {
-            public TestConfig() : this(TestConfig.ConnectionString) {}
-
             public TestConfig(string connectionString)
             {
                 TestIdentityProvider = new TestIdentityProvider(() => "");

@@ -6,9 +6,21 @@
 
     public partial class TestDb
     {
-        public static TestDb<TContext> Create<TContext, TConfig>() where TContext : DbContext where TConfig : ITestDbConfiguration<TContext>
+        static TestDb()
         {
-            return Create(Activator.CreateInstance<TConfig>());
+            Configuration = new TestDbConfiguration<DbContext>
+                            {
+                                TestIdentityProvider = new TestIdentityProvider(() => ""),
+                                ConnectionStringProvider = new ConnectionStringProvider(Guid.NewGuid().ToString()),
+                                TestDbContextFactory = new TestDbContextFactory<DbContext>()
+                            };
+        }
+
+        public static ITestDbConfiguration<DbContext> Configuration { get; set; }
+
+        public static TestDb<TContext> Create<TContext>() where TContext : DbContext
+        {
+            return Create(Configuration as ITestDbConfiguration<TContext>);
         }
 
         public static TestDb<TContext> Create<TContext>(ITestDbConfiguration<TContext> configuration) where TContext : DbContext
@@ -31,9 +43,9 @@
             return testDb;
         }
 
-        public static TestDb Create<TConfig>() where TConfig : ITestDbConfiguration<DbContext>
+        public static TestDb Create()
         {
-            return Create<DbContext, TConfig>();
+            return Create<DbContext>();
         }
 
         public static TestDb Create(ITestDbConfiguration<DbContext> configuration)
