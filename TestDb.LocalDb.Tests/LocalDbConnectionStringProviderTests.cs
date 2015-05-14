@@ -39,11 +39,11 @@
 
         [TestCase("Some_test_name", "Other_test_name")] // Different test names.
         [TestCase("Some_test_name", "Some_test_name")] // Same test name.
-        public void Connection_strings_are_unique(string testName1, string testName2)
+        public void Connection_strings_are_unique(string testIdentity1, string testIdentity2)
         {
             // When
-            var connectionString1 = provider.GetConnectionString(testName1);
-            var connectionString2 = provider.GetConnectionString(testName2);
+            var connectionString1 = provider.GetConnectionString(testIdentity1);
+            var connectionString2 = provider.GetConnectionString(testIdentity2);
             var connectionStrings = new[] { connectionString1, connectionString2 };
 
             // Then
@@ -54,10 +54,10 @@
         [TestCase("Some_unit_test")]
         [TestCase("Test_name_with_invalid_characters<string>(\"hello\")")]
         [TestCase("Test_name_that_is_very_long_lorem_ipsum_dolor_sit_amet_consectetuer_adipiscing_elit_aenean_commodo_ligula_eget_dolor_aenean_massa_cum_sociis_natoque_penatibus_et_magnis_dis_parturient_montes_nascetur_ridiculus_mus_donec_quam_felis_ultricies_nec_pellentesque_eu_pretium_quis_sem")]
-        public void Connection_strings_data_source_is_valid_file_path(string testName)
+        public void Connection_strings_data_source_is_valid_file_path(string testIdentity)
         {
             // When
-            var connectionString = provider.GetConnectionString(testName);
+            var connectionString = provider.GetConnectionString(testIdentity);
 
             // Then
             // ReSharper disable once ObjectCreationAsStatement

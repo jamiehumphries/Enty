@@ -19,10 +19,10 @@
             this.version = version;
         }
 
-        public string GetConnectionString(string testName)
+        public string GetConnectionString(string testIdentity)
         {
-            var cleanedTestName = String.Concat(testName.Split(Path.GetInvalidFileNameChars()));
-            var dbFileName = "TestDb_" + cleanedTestName + StopWatch.ElapsedTicks;
+            var cleanedTestIdentity = String.Concat(testIdentity.Split(Path.GetInvalidFileNameChars()));
+            var dbFileName = "TestDb_" + cleanedTestIdentity + StopWatch.ElapsedTicks;
             if (dbFileName.Length > 100)
             {
                 dbFileName = dbFileName.Substring(0, 50) + "…" + dbFileName.Substring(dbFileName.Length - 50);

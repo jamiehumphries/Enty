@@ -2,6 +2,6 @@
 {
     public interface IConnectionStringProvider
     {
-        string GetConnectionString(string testName);
+        string GetConnectionString(string testIdentity);
     }
 }

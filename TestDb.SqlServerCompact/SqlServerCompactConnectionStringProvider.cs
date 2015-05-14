@@ -9,10 +9,10 @@
     {
         private static readonly Stopwatch Stopwatch = Stopwatch.StartNew();
 
-        public string GetConnectionString(string testName)
+        public string GetConnectionString(string testIdentity)
         {
-            var cleanedTestName = String.Concat(testName.Split(Path.GetInvalidFileNameChars()));
-            var dbFileName = "TestDb_" + cleanedTestName + Stopwatch.ElapsedTicks;
+            var cleanedTestIdentity = String.Concat(testIdentity.Split(Path.GetInvalidFileNameChars()));
+            var dbFileName = "TestDb_" + cleanedTestIdentity + Stopwatch.ElapsedTicks;
             if (dbFileName.Length > 100)
             {
                 dbFileName = dbFileName.Substring(0, 50) + "…" + dbFileName.Substring(dbFileName.Length - 50);

@@ -6,16 +6,16 @@
     {
         private readonly Func<string, string> getConnectionString;
 
-        public ConnectionStringProvider(string connectionString) : this(testName => connectionString) {}
+        public ConnectionStringProvider(string connectionString) : this(testIdentity => connectionString) {}
 
         public ConnectionStringProvider(Func<string, string> getConnectionString)
         {
             this.getConnectionString = getConnectionString;
         }
 
-        public string GetConnectionString(string testName)
+        public string GetConnectionString(string testIdentity)
         {
-            return getConnectionString(testName);
+            return getConnectionString(testIdentity);
         }
     }
 }

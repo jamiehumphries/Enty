@@ -23,7 +23,7 @@
         public void Uses_delegate_from_constructor()
         {
             // Given
-            var provider = new ConnectionStringProvider(testName => testName + "ConnectionString");
+            var provider = new ConnectionStringProvider(testIdentity => testIdentity + "ConnectionString");
 
             // When
             var connectionString = provider.GetConnectionString("Test");
