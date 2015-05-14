@@ -14,6 +14,14 @@
         private TestDb testDb;
         private string connectionString;
 
+        private ITestDbConfiguration<DbContext> defaultConfiguration;
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            defaultConfiguration = TestDb.Configuration;
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -27,6 +35,20 @@
             {
                 testDb.Dispose();
             }
+        }
+
+        [Test]
+        [ExclusivelyUses("GlobalConfiguration")]
+        public void Can_create_non_generic_db_using_default_configuration()
+        {
+            // Given
+            TestDb.Configuration = defaultConfiguration;
+
+            // When
+            testDb = TestDb.Create();
+
+            // Then
+            testDb.Should().Exist();
         }
 
         [Test]
