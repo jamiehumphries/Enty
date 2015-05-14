@@ -20,7 +20,7 @@
 
         public static TestDb<TContext> Create<TContext>() where TContext : DbContext
         {
-            return Create(Configuration as ITestDbConfiguration<TContext>);
+            return Create((ITestDbConfiguration<TContext>)Configuration);
         }
 
         public static TestDb<TContext> Create<TContext>(ITestDbConfiguration<TContext> configuration) where TContext : DbContext
