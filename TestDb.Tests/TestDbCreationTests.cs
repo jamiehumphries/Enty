@@ -149,6 +149,53 @@
             testDb.Should().Exist();
         }
 
+        [Test]
+        public void Constructing_test_db_with_null_connection_string_throws_exception()
+        {
+            // When
+            // ReSharper disable once ObjectCreationAsStatement
+            Action creatingDb = () => new TestDb(null, new TestDbContextFactory<DbContext>());
+
+            // Then
+            creatingDb.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void Constructing_test_db_with_null_context_factory_throws_exception()
+        {
+            // When
+            // ReSharper disable once ObjectCreationAsStatement
+            Action creatingDb = () => new TestDb("db.sdf", null);
+
+            // Then
+            creatingDb.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void Creating_test_db_with_null_config_throws_exception()
+        {
+            // When
+            Action creatingDb = () => TestDb.Create((ITestDbConfiguration<DbContext>)null);
+
+            // Then
+            creatingDb.ShouldThrow<ArgumentNullException>();
+        }
+
+        [TestCase(typeof(NoTestIdentityProviderConfig))]
+        [TestCase(typeof(NoConnectionStringProviderConfig))]
+        [TestCase(typeof(NoTestDbContextFactoryConfig))]
+        public void Creating_test_db_with_incomplete_configuration_throws_exception(Type configType)
+        {
+            // Given
+            var config = (ITestDbConfiguration<DbContext>)Activator.CreateInstance(configType);
+
+            // When
+            Action creatingDb = () => TestDb.Create(config);
+
+            // Then
+            creatingDb.ShouldThrow<ArgumentException>();
+        }
+
         public class NonGenericTestConfig : TestConfig<DbContext>
         {
             public NonGenericTestConfig(string connectionString) : base(connectionString) {}
@@ -166,6 +213,36 @@
                 TestIdentityProvider = new TestIdentityProvider(() => "");
                 ConnectionStringProvider = new ConnectionStringProvider(connectionString);
                 TestDbContextFactory = new TestDbContextFactory<TContext>();
+            }
+        }
+
+        public class NoTestIdentityProviderConfig : TestDbConfiguration<DbContext>
+        {
+            public NoTestIdentityProviderConfig()
+            {
+                TestIdentityProvider = null;
+                ConnectionStringProvider = new ConnectionStringProvider("db.sdf");
+                TestDbContextFactory = new TestDbContextFactory<DbContext>();
+            }
+        }
+
+        public class NoConnectionStringProviderConfig : TestDbConfiguration<DbContext>
+        {
+            public NoConnectionStringProviderConfig()
+            {
+                TestIdentityProvider = new TestIdentityProvider(() => "test");
+                ConnectionStringProvider = null;
+                TestDbContextFactory = new TestDbContextFactory<DbContext>();
+            }
+        }
+
+        public class NoTestDbContextFactoryConfig : TestDbConfiguration<DbContext>
+        {
+            public NoTestDbContextFactoryConfig()
+            {
+                TestIdentityProvider = new TestIdentityProvider(() => "test");
+                ConnectionStringProvider = new ConnectionStringProvider("db.sdf");
+                TestDbContextFactory = null;
             }
         }
     }

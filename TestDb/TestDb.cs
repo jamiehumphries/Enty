@@ -23,6 +23,14 @@ namespace EntityTestDb
 
         public TestDb(string connectionString, ITestDbContextFactory<DbContext> contextFactory)
         {
+            if (connectionString == null)
+            {
+                throw new ArgumentNullException("connectionString");
+            }
+            if (contextFactory == null)
+            {
+                throw new ArgumentNullException("contextFactory");
+            }
             ConnectionString = connectionString;
             this.contextFactory = contextFactory;
         }
