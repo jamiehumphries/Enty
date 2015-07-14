@@ -24,7 +24,7 @@
             var connectionString = provider.GetConnectionString("Some_unit_test");
 
             // Then
-            connectionString.DataSource().Should().Be(@"(LocalDb)\MSSQLLocalDb");
+            connectionString.DataSource().Should().Be(@"(LocalDb)\v11.0");
         }
 
         [Test]

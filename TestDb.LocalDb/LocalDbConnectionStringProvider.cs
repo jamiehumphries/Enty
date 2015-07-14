@@ -10,7 +10,7 @@
         private static readonly Stopwatch StopWatch = Stopwatch.StartNew();
         private readonly string version;
 
-        public LocalDbConnectionStringProvider() : this(LocalDbVersion.MSSQLLocalDb) {}
+        public LocalDbConnectionStringProvider() : this(LocalDbVersion.V11_0) {}
 
         public LocalDbConnectionStringProvider(LocalDbVersion version) : this(version.ToVersionString()) {}
 
