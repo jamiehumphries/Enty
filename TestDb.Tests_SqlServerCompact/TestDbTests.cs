@@ -4,7 +4,7 @@
     using EntityTestDb.NUnit;
     using EntityTestDb.SqlServerCompact;
     using EntityTestDb.Tests;
-    using EntityTestDb.Tests.Test;
+    using EntityTestDb.Tests.TestHelpers;
     using global::NUnit.Framework;
 
     public class TestDbTests_SqlServerCompact : TestDbTests<NUnitSqlServerCompactConfiguration>

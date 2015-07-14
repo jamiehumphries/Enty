@@ -1,12 +1,12 @@
 ﻿namespace EntityTestDb.Tests
 {
+    using EntityTestDb.Configuration;
+    using EntityTestDb.Tests.TestHelpers;
+    using EntityTestDb.Tests.TestHelpers.Models;
+    using FluentAssertions;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using EntityTestDb.Configuration;
-    using EntityTestDb.Tests.Test;
-    using EntityTestDb.Tests.Test.Models;
-    using FluentAssertions;
 
     // Run via derived test projects targetting specific database providers.
     public class TestDbTests<TConfig> where TConfig : ITestDbConfiguration<TestDbContext>

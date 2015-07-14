@@ -1,6 +1,6 @@
-﻿namespace EntityTestDb.Tests.Test
+﻿namespace EntityTestDb.Tests.TestHelpers
 {
-    using EntityTestDb.Tests.Test.Models;
+    using EntityTestDb.Tests.TestHelpers.Models;
     using System.Data.Entity;
 
     public class TestDbContext : DbContext

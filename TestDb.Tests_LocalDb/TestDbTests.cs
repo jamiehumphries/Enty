@@ -4,7 +4,7 @@
     using EntityTestDb.LocalDb;
     using EntityTestDb.NUnit;
     using EntityTestDb.Tests;
-    using EntityTestDb.Tests.Test;
+    using EntityTestDb.Tests.TestHelpers;
     using global::NUnit.Framework;
 
     [TestFixture(typeof(NUnitLocalDbConfiguration))]

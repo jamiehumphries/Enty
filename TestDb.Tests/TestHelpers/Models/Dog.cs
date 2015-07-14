@@ -1,4 +1,4 @@
-﻿namespace EntityTestDb.Tests.Test.Models
+﻿namespace EntityTestDb.Tests.TestHelpers.Models
 {
     public class Dog
     {

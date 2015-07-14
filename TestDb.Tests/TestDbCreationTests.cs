@@ -1,7 +1,6 @@
 ﻿namespace EntityTestDb.Tests
 {
     using EntityTestDb.Configuration;
-    using EntityTestDb.Tests.Test;
     using EntityTestDb.Tests.TestHelpers;
     using FluentAssertions;
     using global::NUnit.Framework;
